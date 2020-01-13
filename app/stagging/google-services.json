@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "294751483733",
+    "firebase_url": "https://jpa-cv.firebaseio.com",
+    "project_id": "jpa-cv",
+    "storage_bucket": "jpa-cv.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294751483733:android:e29818451521dc2f",
+        "android_client_info": {
+          "package_name": "com.adviscent.jpa.stagging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "294751483733-edfjkc4i2lff9ilubdhquaj3eme6b8nb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNilHY3wTAHH5GBtRhxvWPJQcvN5WTAU4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

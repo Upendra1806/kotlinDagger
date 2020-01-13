@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtPushNotification4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/verlag_bold"
+        android:text="@string/push_notifications"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSizeNormal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgLine15"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:src="@color/warmGreyThree"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txtPushNotification4"
+        app:layout_constraintTop_toBottomOf="@+id/txtPushNotification4" />
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:fontFamily="@font/verlag_light"
+        android:gravity="center_vertical"
+        android:text="@string/activated_for_alerts"
+        android:textColor="@color/text_grey_darker"
+        android:textSize="@dimen/textSizeNormal"
+        app:layout_constraintBottom_toTopOf="@+id/img4"
+        app:layout_constraintStart_toStartOf="@+id/imgLine15"
+        app:layout_constraintTop_toBottomOf="@+id/imgLine15" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchAlert2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/textView34"
+        app:layout_constraintEnd_toEndOf="@+id/imgLine15"
+        app:layout_constraintTop_toTopOf="@id/textView34"
+        app:thumbTint="@color/colorPrimary"
+        app:trackTint="@color/state_switch" />
+
+    <ImageView
+        android:id="@+id/img4"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:src="@color/whiteLine"
+        app:layout_constraintEnd_toEndOf="@+id/imgLine15"
+        app:layout_constraintStart_toStartOf="@+id/imgLine15"
+        app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+    <TextView
+        android:id="@+id/txtNews2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:fontFamily="@font/verlag_light"
+        android:gravity="center_vertical"
+        android:text="@string/activated_for_all_news"
+        android:textColor="@color/text_grey_darker"
+        android:textSize="@dimen/textSizeNormal"
+        app:layout_constraintStart_toStartOf="@+id/img4"
+        app:layout_constraintTop_toBottomOf="@+id/img4" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchNews2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/txtNews2"
+        app:layout_constraintEnd_toEndOf="@+id/img4"
+        app:layout_constraintTop_toTopOf="@id/txtNews2"
+        app:thumbTint="@color/colorPrimary"
+        app:trackTint="@color/state_switch" />
+
+    <TextView
+        android:id="@+id/notificationsDisabled"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:fontFamily="@font/verlag_light"
+        android:gravity="center_vertical"
+        android:text="@string/push_notifications_are_switched_off_by_device_settings"
+        android:textColor="@color/text_grey_darker"
+        android:textSize="@dimen/textSizeNormal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/imgLine15"
+        app:layout_constraintStart_toStartOf="@id/imgLine15"
+        app:layout_constraintTop_toBottomOf="@id/txtNews2"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/imgLine16"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:src="@color/whiteLine"
+        app:layout_constraintEnd_toEndOf="@+id/imgLine15"
+        app:layout_constraintStart_toStartOf="@+id/imgLine15"
+        app:layout_constraintTop_toBottomOf="@id/notificationsDisabled" />
+</androidx.constraintlayout.widget.ConstraintLayout>

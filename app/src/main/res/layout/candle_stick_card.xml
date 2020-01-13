@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="com.juliusbaer.premarket.ui.customViews.CandleStickChart">
+
+    <View
+        android:id="@+id/highLow"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/warmGreyTwo"
+        android:layout_gravity="center_vertical"
+        tools:layout_marginStart="100dp"
+        tools:layout_width="120dp" />
+
+    <View
+        android:id="@+id/imgOpen"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/blueGreen"
+        android:layout_gravity="center_vertical"
+        tools:layout_width="60dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imgLast"
+        android:layout_width="9dp"
+        android:layout_height="23dp"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        android:layout_gravity="center_vertical" />
+</merge>

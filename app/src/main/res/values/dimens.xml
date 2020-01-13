@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="candle_stick_width">175dp</dimen>
+    <dimen tools:override="true" name="design_bottom_navigation_margin">10dp</dimen>
+    <dimen name="tab_layout_height">34dp</dimen>
+    <dimen name="underlying_square_radius">5dp</dimen>
+    <dimen name="screen_title_margin_start">36dp</dimen>
+    <dimen name="strike_price_margin_start">45dp</dimen>
+    <dimen name="positive_line_margin_start">10dp</dimen>
+    <dimen name="textSizeNormal">14sp</dimen>
+    <dimen name="textSizeSmall">12sp</dimen>
+</resources>

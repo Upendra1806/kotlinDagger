@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "16990242325",
+    "firebase_url": "https://julius-baer-premarket.firebaseio.com",
+    "project_id": "julius-baer-premarket",
+    "storage_bucket": "julius-baer-premarket.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16990242325:android:c9d21792de247988",
+        "android_client_info": {
+          "package_name": "com.juliusbaer.premarket.prod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16990242325-35jea69kpg1oenjuvjcedclr84v9jn5i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCx4YEApkWWR9e3kvLRQXA-PfhjWKF3lgQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

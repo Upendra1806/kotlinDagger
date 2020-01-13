@@ -1,0 +1,437 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.alerts.UnderlyingAlertsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        style="@style/AppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/header_app" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- The primary full-screen view. This can be replaced with whatever view
+             is needed to present your content, e.g. VideoView, SurfaceView,
+             TextureView, etc. -->
+
+        <!-- This FrameLayout insets its children based on system windows using
+             android:fitsSystemWindows. -->
+
+        <TextView
+            android:id="@+id/imgBtnSetAlert"
+            android:layout_width="288dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/group_8"
+            android:fontFamily="@font/verlag_light"
+            android:gravity="center"
+            android:text="@string/save_settings"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSizeNormal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/imgBtnSetAlert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/expiryLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@color/whiteThree"
+                    android:paddingBottom="16dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <Switch
+                        android:id="@+id/checkExpiry"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="23dp"
+                        android:fontFamily="@font/verlag_bold"
+                        android:text="@string/time_to_expiry_in_days"
+                        android:textAllCaps="true"
+                        android:textColor="@color/deepBlue"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.juliusbaer.premarket.ui.customViews.seekBar.RangeSeekBar
+                        android:id="@+id/rangeSeekBarExpiry"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/checkExpiry"
+                        app:lineColorEdge="@color/whiteTwo"
+                        app:lineColorSelected="@color/deepBlue"
+                        app:min="1"
+                        app:progressHintMode="alwaysShow"
+                        app:progressHintResId="@drawable/bg_baloon_white_round_3dp"
+                        app:seekBarHeight="8dp"
+                        app:seekBarMode="single"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/alertStartExpireDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:fontFamily="@font/verlag_book"
+                        android:textColor="#AAAAAA"
+                        android:textSize="@dimen/textSizeSmall"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="@+id/rangeSeekBarExpiry"
+                        app:layout_constraintTop_toBottomOf="@+id/rangeSeekBarExpiry"
+                        tools:visibility="visible" />
+
+
+                    <TextView
+                        android:id="@+id/alertEndExpireDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="24dp"
+                        android:fontFamily="@font/verlag_book"
+                        android:textColor="#AAAAAA"
+                        android:textSize="@dimen/textSizeSmall"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="@+id/rangeSeekBarExpiry"
+                        app:layout_constraintTop_toBottomOf="@+id/rangeSeekBarExpiry"
+                        tools:visibility="visible" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/strikePriceLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@color/whiteThree"
+                    android:visibility="gone">
+
+                    <Switch
+                        android:id="@+id/checkstrikePrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="23dp"
+                        android:fontFamily="@font/verlag_bold"
+                        android:text=" Strike Price (CHF)"
+                        android:textAllCaps="true"
+                        android:textColor="@color/deepBlue"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.juliusbaer.premarket.ui.customViews.seekBar.RangeSeekBar
+                        android:id="@+id/rangeSeekBarstrikePrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/checkstrikePrice"
+                        app:lineColorEdge="@color/whiteTwo"
+                        app:lineColorSelected="@color/deepBlue"
+                        app:progressHintMode="alwaysShow"
+                        app:progressHintResId="@drawable/bg_baloon_white_round_3dp"
+                        app:seekBarHeight="8dp"
+                        app:seekBarMode="single" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/priceDistanceLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@color/whiteThree"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="20dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <Switch
+                        android:id="@+id/checkpriceDistance"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginBottom="23dp"
+                        android:fontFamily="@font/verlag_bold"
+                        android:text=" Distance to strike (%)"
+                        android:textAllCaps="true"
+                        android:textColor="@color/deepBlue"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.juliusbaer.premarket.ui.customViews.seekBar.RangeSeekBar
+                        android:id="@+id/rangeSeekBarpriceDistance"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/checkpriceDistance"
+                        app:lineColorEdge="@color/whiteTwo"
+                        app:lineColorSelected="@color/rosyPink"
+                        app:progressHintMode="alwaysShow"
+                        app:progressHintResId="@drawable/bg_baloon_white_round_3dp"
+                        app:seekBarHeight="8dp"
+                        app:seekBarMode="range"
+                        tools:visibility="visible" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@color/whiteThree">
+
+                    <Switch
+                        android:id="@+id/checkPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/verlag_bold"
+                        android:paddingBottom="23dp"
+                        android:text=" PRICE  "
+                        android:textColor="@color/deepBlue"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/etInputPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="37dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@drawable/group_button_white"
+                        android:digits="0123456789."
+                        android:ems="10"
+                        android:fontFamily="@font/verlag_light"
+                        android:gravity="center_vertical|end"
+                        android:inputType="numberDecimal"
+                        android:padding="5dp"
+                        android:textColor="@color/deepBlue"
+                        android:textSize="@dimen/textSizeSmall"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="@+id/checkPrice"
+                        app:layout_constraintStart_toStartOf="@+id/checkPrice"
+                        app:layout_constraintTop_toBottomOf="@+id/checkPrice"
+                        tools:text="9"
+                        tools:visibility="visible" />
+
+                    <com.juliusbaer.premarket.ui.customViews.MarkSeekBar
+                        android:id="@+id/price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="32dp"
+                        android:maxHeight="6dp"
+                        android:minHeight="6dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:progressDrawable="@drawable/seekbar_style"
+                        android:splitTrack="false"
+                        android:thumb="@drawable/ic_knob"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/etInputPrice"
+                        app:markThumb="@drawable/ring"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/current_price_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/verlag_book"
+                        android:text="@string/current_price"
+                        android:textSize="@dimen/textSizeSmall"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/current_price_text_view"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="@+id/price"
+                        app:layout_constraintTop_toBottomOf="@id/price"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/current_price_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:fontFamily="@font/verlag_book"
+                        android:textColor="@color/state_activated_dark_grey_blue"
+                        android:textSize="@dimen/textSizeSmall"
+                        android:visibility="gone"
+                        app:layout_constraintBaseline_toBaselineOf="@id/current_price_label"
+                        app:layout_constraintEnd_toEndOf="@id/price"
+                        app:layout_constraintStart_toEndOf="@+id/current_price_label"
+                        tools:text="12.6"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/txtPriceMax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/verlag_book"
+                        android:textSize="@dimen/textSizeNormal"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="@id/price"
+                        app:layout_constraintTop_toBottomOf="@id/price"
+                        tools:visibility="visible" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/volumeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@color/whiteThree"
+                    android:paddingBottom="16dp"
+                    android:visibility="gone">
+
+                    <Switch
+                        android:id="@+id/checkVolume"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/verlag_bold"
+                        android:paddingBottom="23dp"
+                        android:text=" VOLUME"
+                        android:textColor="@color/deepBlue"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.juliusbaer.premarket.ui.customViews.seekBar.RangeSeekBar
+                        android:id="@+id/dateVolume"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:pointerIcon="none"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/checkVolume"
+                        app:lineColorEdge="@color/whiteTwo"
+                        app:lineColorSelected="@color/deepBlue"
+                        app:progressHintMode="alwaysShow"
+                        app:progressHintResId="@drawable/bg_baloon_white_round_3dp"
+                        app:seekBarHeight="6dp"
+                        app:seekBarMode="single"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/txtVolumeInit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:fontFamily="@font/verlag_light"
+                        android:text="0%"
+                        android:textSize="@dimen/textSizeNormal"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/dateVolume"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/txtVolumeMax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/verlag_light"
+                        android:text="67%"
+                        android:textSize="@dimen/textSizeNormal"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/dateVolume"
+                        tools:visibility="visible" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/newsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:background="@color/whiteThree"
+                    android:visibility="visible">
+
+                    <Switch
+                        android:id="@+id/checkNews"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/verlag_bold"
+                        android:paddingBottom="23dp"
+                        android:text="RECEIVE NEWS?"
+                        android:textColor="@color/deepBlue"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

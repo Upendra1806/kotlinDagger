@@ -1,0 +1,361 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.detailWarrant.WarrantDetailFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        style="@style/AppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/child_header_app" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/contentHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/informationCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <include layout="@layout/include_price_info" />
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@color/background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txtDateValues" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/verlag_book"
+                        android:text="@string/traded_volume"
+                        android:textAllCaps="true"
+                        android:textColor="#4C4C4C"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+                    <TextView
+                        android:id="@+id/txtTradedVolume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/verlag_book"
+                        android:text="0"
+                        android:textColor="#4C4C4C"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider"
+                        tools:text="4500" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txtTradedVolume" />
+
+                    <TextView
+                        android:id="@+id/txtPriceValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/verlag_book"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/txtPerformance"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/valorLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/valor"
+                    app:layout_constraintEnd_toStartOf="@+id/txtValorValue"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/informationCard" />
+
+                <TextView
+                    android:id="@+id/txtValorValue"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/valorLabel" />
+
+                <TextView
+                    android:id="@+id/capLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/cap"
+                    app:layout_constraintEnd_toStartOf="@id/cap"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/valorLabel" />
+
+                <TextView
+                    android:id="@+id/cap"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/capLabel" />
+
+                <TextView
+                    android:id="@+id/floorLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/floor"
+                    app:layout_constraintEnd_toStartOf="@id/floor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/capLabel" />
+
+                <TextView
+                    android:id="@+id/floor"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/floorLabel" />
+
+                <TextView
+                    android:id="@+id/strikeLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/strike"
+                    app:layout_constraintEnd_toStartOf="@id/txtStrikeLevel"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/floorLabel" />
+
+                <TextView
+                    android:id="@+id/txtStrikeLevel"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/strikeLabel" />
+
+                <TextView
+                    android:id="@+id/expiryLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/expiry"
+                    app:layout_constraintEnd_toStartOf="@id/expiryDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/strikeLabel" />
+
+                <TextView
+                    android:id="@+id/expiryDate"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/expiryLabel" />
+
+                <TextView
+                    android:id="@+id/closingLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/closing"
+                    app:layout_constraintEnd_toStartOf="@id/txtExerciseDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/expiryLabel" />
+
+                <TextView
+                    android:id="@+id/txtExerciseDate"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/closingLabel" />
+
+                <TextView
+                    android:id="@+id/daysWithRangeLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/days_within_range"
+                    app:layout_constraintEnd_toStartOf="@id/daysWithRange"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/closingLabel" />
+
+                <TextView
+                    android:id="@+id/daysWithRange"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/daysWithRangeLabel" />
+
+                <TextView
+                    android:id="@+id/tradingDaysToMaturityLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/trading_days_to_maturity"
+                    app:layout_constraintEnd_toStartOf="@id/tradingDaysToMaturity"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/daysWithRangeLabel" />
+
+                <TextView
+                    android:id="@+id/tradingDaysToMaturity"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tradingDaysToMaturityLabel" />
+
+                <TextView
+                    android:id="@+id/maxPayoutLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/max_payout"
+                    app:layout_constraintEnd_toStartOf="@id/maxPayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tradingDaysToMaturityLabel" />
+
+                <TextView
+                    android:id="@+id/maxPayout"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/maxPayoutLabel" />
+
+                <TextView
+                    android:id="@+id/ratioLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/ratio"
+                    app:layout_constraintEnd_toStartOf="@id/txtRatio"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/maxPayoutLabel" />
+
+                <TextView
+                    android:id="@+id/txtRatio"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ratioLabel" />
+
+                <TextView
+                    android:id="@+id/volatilityLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/volatility"
+                    app:layout_constraintEnd_toStartOf="@id/txtImpliedVolatility"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ratioLabel" />
+
+                <TextView
+                    android:id="@+id/txtImpliedVolatility"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/volatilityLabel" />
+
+                <TextView
+                    android:id="@+id/deltaLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/delta"
+                    app:layout_constraintEnd_toStartOf="@id/txtDelta"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/volatilityLabel" />
+
+                <TextView
+                    android:id="@+id/txtDelta"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/deltaLabel" />
+
+                <TextView
+                    android:id="@+id/currencyLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/currency"
+                    app:layout_constraintEnd_toStartOf="@id/txtPriceCurrency"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/deltaLabel" />
+
+                <TextView
+                    android:id="@+id/txtPriceCurrency"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/currencyLabel" />
+
+                <TextView
+                    android:id="@+id/dailyPaymentLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/daily_payment"
+                    app:layout_constraintEnd_toStartOf="@id/dailyPayment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/currencyLabel" />
+
+                <TextView
+                    android:id="@+id/dailyPayment"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/dailyPaymentLabel" />
+
+                <TextView
+                    android:id="@+id/leverageLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/leverage"
+                    app:layout_constraintEnd_toStartOf="@id/txtLeverage"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dailyPaymentLabel" />
+
+                <TextView
+                    android:id="@+id/txtLeverage"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/leverageLabel" />
+
+                <TextView
+                    android:id="@+id/gearingLabel"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/gearing"
+                    app:layout_constraintEnd_toStartOf="@id/txtGearing"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/leverageLabel" />
+
+                <TextView
+                    android:id="@+id/txtGearing"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/gearingLabel" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
