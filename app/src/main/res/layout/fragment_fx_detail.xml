@@ -1,0 +1,157 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.company.CompanyFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        style="@style/AppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:background="@color/deepBlue">
+
+            <include layout="@layout/include_toolbar" />
+
+            <TextView
+                android:id="@+id/screenTitle"
+                style="@style/ScreenTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toolbar"
+                android:ellipsize="end"
+                android:maxLines="2"
+                tools:text="XAU/USD" />
+
+            <TextView
+                android:id="@+id/pairHumanName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/screenTitle"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/bg_catalina_blue_round_5dp"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/verlag_book"
+                android:paddingStart="9dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="9dp"
+                android:paddingBottom="5dp"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSizeSmall"
+                android:visibility="gone"
+                tools:drawableStart="@drawable/ic_metal_xag"
+                tools:text="Platinum"
+                tools:visibility="visible" />
+        </RelativeLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/contentHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/include_performance_prices" />
+
+            <include
+                android:id="@+id/include2"
+                layout="@layout/layout_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/informationCard" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <TextView
+                    android:id="@+id/daysMovingAverage50Label"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/days_moving_average_50"
+                    app:layout_constraintEnd_toStartOf="@+id/daysMovingAverage50"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/daysMovingAverage50"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/daysMovingAverage50Label"
+                    tools:text="123" />
+
+                <TextView
+                    android:id="@+id/daysMovingAverage100Label"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/days_moving_average_100"
+                    app:layout_constraintEnd_toStartOf="@+id/daysMovingAverage100"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/daysMovingAverage50Label" />
+
+                <TextView
+                    android:id="@+id/daysMovingAverage100"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/daysMovingAverage100Label"
+                    tools:text="123" />
+
+                <TextView
+                    android:id="@+id/daysMovingAverage200Label"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/days_moving_average_200"
+                    app:layout_constraintEnd_toStartOf="@+id/daysMovingAverage200"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/daysMovingAverage100Label" />
+
+                <TextView
+                    android:id="@+id/daysMovingAverage200"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/daysMovingAverage200Label"
+                    tools:text="123" />
+
+                <TextView
+                    android:id="@+id/txtHighLow"
+                    style="@style/AttributeField"
+                    android:layout_width="0dp"
+                    android:text="@string/high_low"
+                    app:layout_constraintEnd_toStartOf="@+id/txtRatio"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/daysMovingAverage200Label" />
+
+                <TextView
+                    android:id="@+id/txtRatio"
+                    style="@style/AttributeField.Value"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txtHighLow"
+                    tools:text="123" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,523 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.filter.FilterFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        style="@style/AppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/header_app" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contentHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnFilterStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="15dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewProduct"
+                    style="@style/SectionCardLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/scrollView4">
+
+                    <TextView
+                        android:id="@+id/txtFilterProducts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/verlag_light"
+                        android:gravity="center"
+                        android:text="@string/all_warrants"
+                        android:textAllCaps="true"
+                        android:textColor="@color/deepBlue"
+                        android:textSize="15sp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/underlyingSearchLayout"
+                    style="@style/SectionCardLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:visibility="visible"
+                    app:contentPaddingBottom="16dp"
+                    app:contentPaddingLeft="16dp"
+                    app:contentPaddingRight="16dp"
+                    app:contentPaddingTop="20dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/textView59"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/verlag_bold"
+                            android:labelFor="@id/autocomplete"
+                            android:text="@string/equity"
+                            android:textAllCaps="true"
+                            android:textColor="@color/deepBlue"
+                            android:textSize="@dimen/textSizeNormal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.juliusbaer.premarket.ui.customViews.AutoCompleteTextViewCustom
+                            android:id="@+id/autocomplete"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/group"
+                            android:completionThreshold="0"
+                            android:drawableEnd="@drawable/icon_search"
+                            android:ems="10"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="@dimen/textSizeNormal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView59" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/category"
+                    style="@style/SectionCardLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    app:contentPaddingBottom="20dp"
+                    app:contentPaddingLeft="16dp"
+                    app:contentPaddingRight="16dp"
+                    app:contentPaddingTop="20dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txtPushNotification6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/verlag_bold"
+                            android:text="@string/category"
+                            android:textAllCaps="true"
+                            android:textColor="@color/deepBlue"
+                            android:textSize="@dimen/textSizeNormal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txtBoxes4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/verlag_light"
+                            android:text="@string/warrants"
+                            android:textColor="@color/text_grey_darker"
+                            android:textSize="@dimen/textSizeNormal"
+                            app:layout_constraintStart_toStartOf="@+id/txtPushNotification6"
+                            app:layout_constraintTop_toBottomOf="@+id/txtPushNotification6" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchWarrants"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="5dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            app:layout_constraintBottom_toBottomOf="@id/txtBoxes4"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/txtBoxes4"
+                            app:thumbTint="@color/colorPrimary"
+                            app:trackTint="@color/state_switch" />
+
+                        <ImageView
+                            android:id="@+id/imgLine21"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@color/whiteLine"
+                            app:layout_constraintEnd_toEndOf="@+id/switchWarrants"
+                            app:layout_constraintStart_toStartOf="@id/txtBoxes4"
+                            app:layout_constraintTop_toBottomOf="@id/txtBoxes4" />
+
+                        <TextView
+                            android:id="@+id/textView43"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:fontFamily="@font/verlag_light"
+                            android:text="@string/knock_out_warrants"
+                            android:textColor="@color/text_grey_darker"
+                            android:textSize="@dimen/textSizeNormal"
+                            app:layout_constraintStart_toStartOf="@+id/imgLine21"
+                            app:layout_constraintTop_toBottomOf="@+id/imgLine21" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchKnock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="5dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            app:layout_constraintBottom_toBottomOf="@id/textView43"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/textView43"
+                            app:thumbTint="@color/colorPrimary"
+                            app:trackTint="@color/state_switch" />
+
+                        <ImageView
+                            android:id="@+id/imgLine22"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@color/whiteLine"
+                            app:layout_constraintEnd_toEndOf="@+id/switchKnock"
+                            app:layout_constraintStart_toStartOf="@+id/textView43"
+                            app:layout_constraintTop_toBottomOf="@+id/textView43" />
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/verlag_light"
+                            android:text="@string/range_warrants"
+                            android:textColor="@color/text_grey_darker"
+                            android:textSize="@dimen/textSizeNormal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/imgLine22"
+                            app:layout_constraintTop_toBottomOf="@+id/imgLine22" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchRange"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="5dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            app:layout_constraintBottom_toBottomOf="@id/textView5"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView5"
+                            app:thumbTint="@color/colorPrimary"
+                            app:trackTint="@color/state_switch" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/type"
+                    style="@style/SectionCardLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:contentPaddingLeft="16dp"
+                    app:contentPaddingRight="16dp"
+                    app:contentPaddingTop="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/category"
+                    tools:visibility="visible">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingBottom="25dp">
+
+                        <TextView
+                            android:id="@+id/typeTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/verlag_bold"
+                            android:text="@string/type"
+                            android:textAllCaps="true"
+                            android:textColor="@color/deepBlue"
+                            android:textSize="@dimen/textSizeNormal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/btnCall"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/bg_selector_white_grey"
+                            android:fontFamily="@font/verlag_book"
+                            android:gravity="center"
+                            android:text="@string/call"
+                            android:textAllCaps="true"
+                            android:textColor="@color/state_activated_grey_blue"
+                            android:textSize="13sp"
+                            app:layout_constraintEnd_toStartOf="@id/btnPut"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/typeTitle" />
+
+                        <TextView
+                            android:id="@+id/btnPut"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/bg_selector_white_grey"
+                            android:fontFamily="@font/verlag_book"
+                            android:gravity="center"
+                            android:text="@string/put"
+                            android:textAllCaps="true"
+                            android:textColor="@color/state_activated_grey_blue"
+                            android:textSize="13sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/btnCall"
+                            app:layout_constraintTop_toBottomOf="@+id/typeTitle" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/strike"
+                    style="@style/SectionCardLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    app:contentPaddingBottom="16dp"
+                    app:contentPaddingTop="20dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/textView57"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/verlag_bold"
+                            android:text="@string/strike_price_chf"
+                            android:textColor="@color/deepBlue"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/textSizeNormal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.juliusbaer.premarket.ui.customViews.seekBar.RangeSeekBar
+                            android:id="@+id/strikePrice"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:paddingStart="22dp"
+                            android:paddingEnd="6dp"
+                            android:pointerIcon="none"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView57"
+                            app:lineColorEdge="@color/seekBarInactive"
+                            app:lineColorSelected="@color/deepBlue"
+                            app:progressHintMode="alwaysHide"
+                            app:seekBarHeight="6dp"
+                            app:progressHintResId="@drawable/bg_baloon_white_round_3dp"
+                            app:markResId="@drawable/ring"
+                            app:seekBarMode="range"
+                            app:textSize="@dimen/textSizeSmall"
+                            app:showHintLabels="true"
+                            app:markFontFamily="@font/verlag_light"
+                            app:markTextColor="@color/deepBlue"
+                            app:markTextSize="@dimen/textSizeSmall" />
+
+                        <LinearLayout
+                            android:id="@+id/underlyingPriceLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="@id/strikePrice"
+                            app:layout_constraintStart_toStartOf="@id/strikePrice"
+                            app:layout_constraintTop_toBottomOf="@id/strikePrice">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/verlag_book"
+                                android:text="@string/equity_price"
+                                android:textColor="#AAAAAA"
+                                android:textSize="@dimen/textSizeSmall" />
+
+                            <TextView
+                                android:id="@+id/underlyingPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/verlag_book"
+                                android:textColor="@color/state_activated_dark_grey_blue"
+                                android:textSize="@dimen/textSizeSmall"
+                                tools:text="123.34" />
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/maturity"
+                    style="@style/SectionCardLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    app:contentPaddingBottom="16dp"
+                    app:contentPaddingTop="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/type"
+                    tools:visibility="gone">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/textView56"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/verlag_bold"
+                            android:text="@string/maturity"
+                            android:textAllCaps="true"
+                            android:textColor="@color/deepBlue"
+                            android:textSize="@dimen/textSizeNormal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.juliusbaer.premarket.ui.customViews.seekBar.RangeSeekBar
+                            android:id="@+id/maturityValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:paddingStart="22dp"
+                            android:paddingEnd="6dp"
+                            android:pointerIcon="none"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView56"
+                            app:lineColorEdge="@color/seekBarInactive"
+                            app:lineColorSelected="@color/deepBlue"
+                            app:progressHintMode="alwaysShow"
+                            app:seekBarHeight="6dp"
+                            app:seekBarMode="range"
+                            app:textSize="@dimen/textSizeSmall"
+                            app:showHintLabels="true"
+                            app:markFontFamily="@font/verlag_light"
+                            app:markTextColor="@color/deepBlue"
+                            app:markTextSize="@dimen/textSizeSmall"/>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/tradedVolume"
+                    style="@style/SectionCardLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:visibility="visible"
+                    app:contentPaddingBottom="16dp"
+                    app:contentPaddingTop="20dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/textView58"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/verlag_bold"
+                            android:text="@string/min_traded_volume"
+                            android:textAllCaps="true"
+                            android:textColor="@color/deepBlue"
+                            android:textSize="@dimen/textSizeNormal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.juliusbaer.premarket.ui.customViews.seekBar.RangeSeekBar
+                            android:id="@+id/dateVolume"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:paddingStart="22dp"
+                            android:paddingEnd="6dp"
+                            android:pointerIcon="none"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView58"
+                            app:lineColorEdge="@color/deepBlue"
+                            app:lineColorSelected="@color/seekBarInactive"
+                            app:progressHintMode="alwaysShow"
+                            app:seekBarHeight="6dp"
+                            app:seekBarMode="single"
+                            app:thumbPrimaryColor="@color/white"
+                            app:thumbSecondaryColor="@color/white"
+                            app:markResId="@drawable/ring"
+                            app:textSize="@dimen/textSizeSmall"
+                            app:showMarkLabels="true"
+                            app:markFontFamily="@font/verlag_light"
+                            app:markTextColor="@color/deepBlue"
+                            app:markTextSize="@dimen/textSizeSmall" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/btnFilterStart"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginEnd="19dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_deepblue_round_5"
+            android:fontFamily="@font/verlag_light"
+            android:gravity="center"
+            android:text="@string/show_12_results"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#141E55</color>
+    <color name="colorAccent">#b9141E55</color>
+
+    <color name="background">#f9f9f9</color>
+    <color name="blueGreen">#00a292</color>
+    <color name="grey">#efeee5</color>
+    <color name="grey_1">#8A000000</color>
+    <color name="text_grey">#717C7D</color>
+    <color name="text_grey_darker">#4c4c4c</color>
+    <color name="almost_white">#fafafa</color>
+    <color name="date_grey">#757575</color>
+    <color name="light_grey">#F2F2F2</color>
+    <color name="deepBlue">#141E55</color>
+    <color name="persianBlue">#096e91</color>
+    <color name="warmGrey">#979797</color>
+    <color name="warmGreyB">#9b9b9b</color>
+    <color name="warmGrey13">#64F8F8F8</color>
+    <color name="warmGreyTwo">#999999</color>
+    <color name="warmGreyThree">#979797</color>
+    <color name="teal">#00a292</color>
+
+    <color name="whiteTwo">#f8f8f8</color>
+    <color name="whiteThree">#f3f3f3</color>
+    <color name="whiteLine">#64e9e9e9</color>
+    <color name="rosyPink">#ec777b</color>
+    <color name="rouge">#9A1D2E</color>
+    <color name="black">#000000</color>
+    <color name="tealBlue">#0097B9</color>
+
+    <color name="chartFill">#F9192C</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="deepBlueLight">#20295A</color>
+    <color name="seekBarInactive">#C6CBCB</color>
+    <color name="rollingStoneGrey">#717C7D</color>
+    <color name="dimGrey">#707070</color>
+    <color name="observatory">#008675</color>
+    <color name="mandarianOrange">#971B2F</color>
+    <color name="zirconGrey">#F0F1F2</color>
+    <color name="catalinaBlue">#2B3466</color>
+    <color name="negativeBgColor">#971B30</color>
+</resources>

@@ -1,0 +1,222 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlin-android-extensions'
+
+copy {
+    from "$projectDir"
+    into "$rootProject.projectDir"
+    include "local.properties.template"
+    rename "local.properties.template", "local.properties"
+    expand project.properties
+}
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+
+        applicationId "com.juliusbaer.premarket"
+
+        versionCode 153
+        versionName "1.4.1"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "com.juliusbaer.premarket.CustomRunner"
+        testInstrumentationRunnerArguments disableAnalytics: 'true'
+        resConfigs "en"
+    }
+    androidExtensions {
+        experimental = true
+    }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+        check 'Interoperability'
+    }
+    signingConfigs {
+        debug {
+            storeFile file("$projectDir/debug.keystore")
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            dimension "default"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "PreMarket.DEV"
+            buildConfigField 'String', 'API_BASE_URL', '"http://217.71.92.66/jpa/cv.dev/"'
+            buildConfigField 'String', 'SOCKET_BASE_URL', '"tcp://217.71.92.68:443"'
+            buildConfigField 'String', 'TOKEN', '"in342yxro7yn3o8ycrf98pq3yxp9r8uq38u4rtpt0q38up480f3fb8347hf374hf037h40f3h4f037h4f03h84f0h83450f8j0j58fjh"'
+            buildConfigField 'String', 'TOKEN1', '"in342yxro7yn3o8y"'
+            manifestPlaceholders.HOCKEYAPP_APP_ID = ""
+        }
+        devTest {
+            dimension "default"
+            resValue "string", "app_name", "PreMarket.Test"
+            applicationIdSuffix ".devTest"
+            buildConfigField 'String', 'API_BASE_URL', '"http://217.71.92.66/jpa/cv.test/"'
+            buildConfigField 'String', 'SOCKET_BASE_URL', '"tcp://217.71.92.68:473"'
+            buildConfigField 'String', 'TOKEN', '"in342yxro7yn3o8ycrf98pq3yxp9r8uq38u4rtpt0q38up480f3fb8347hf374hf037h40f3h4f037h4f03h84f0h83450f8j0j58fjh"'
+            buildConfigField 'String', 'TOKEN1', '"in342yxro7yn3o8y"'
+            manifestPlaceholders.HOCKEYAPP_APP_ID = "e5083418b572424abbd21beb1e125dc2"
+        }
+        prodTest {
+            dimension "default"
+            resValue "string", "app_name", "PreMarket.ProdTest"
+            applicationIdSuffix ".prodTest"
+            buildConfigField 'String', 'API_BASE_URL', '"https://test.earlysmi.interactive-advisor.com"'
+            buildConfigField 'String', 'SOCKET_BASE_URL', '"tcp://217.71.92.76:443"'
+            buildConfigField 'String', 'TOKEN', '"in342yxro7yn3o8ycrf98pq3yxp9r8uq38u4rtpt0q38up480f3fb8347hf374hf037h40f3h4f037h4f03h84f0h83450f8j0j58fjh"'
+            buildConfigField 'String', 'TOKEN1', '"in342yxro7yn3o8y"'
+            manifestPlaceholders.HOCKEYAPP_APP_ID = "f10f93a6a962477a98714e44879cca89"
+        }
+        prod {
+            dimension "default"
+            applicationIdSuffix ".prod"
+            resValue "string", "app_name", "PreMarket"
+            buildConfigField 'String', 'API_BASE_URL', '"https://prod.earlysmi.interactive-advisor.com"'
+            buildConfigField 'String', 'SOCKET_BASE_URL', '"tcp://217.71.92.75:443"'
+            buildConfigField 'String', 'TOKEN', '"in342yxro7yn3o8ycrf98pq3yxp9r8uq38u4rtpt0q38up480f3fb8347hf374hf037h40f3h4f037h4f03h84f0h83450f8j0j58fjh"'
+            buildConfigField 'String', 'TOKEN1', '"in342yxro7yn3o8y"'
+            manifestPlaceholders.HOCKEYAPP_APP_ID = "54a11015bdb14c74a48d2fe6063afa6d"
+        }
+        android.applicationVariants.all { variant ->
+            variant.outputs.all {
+
+                def SEP = "_"
+                def flavor = variant.productFlavors[0].name
+                def buildType = variant.variantData.variantConfiguration.buildType.name
+                def version = variant.versionName
+                def versionCode = variant.versionCode
+                def date = new Date()
+                def formattedDate = date.format('dd-MM-yyyy-HH_mm')
+
+                outputFileName = "${flavor}${SEP}${buildType}${SEP}${version}${SEP}${versionCode}${SEP}${formattedDate}.apk"
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    def support_vers = '1.0.0'
+
+    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "androidx.fragment:fragment-ktx:1.1.0"
+    implementation "androidx.cardview:cardview:$support_vers"
+    implementation "androidx.recyclerview:recyclerview:$support_vers"
+    implementation "com.google.android.material:material:$support_vers"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
+
+    //Don't update!!!!!!
+    implementation 'net.hockeyapp.android:HockeySDK:5.1.1'
+
+    implementation 'com.google.firebase:firebase-messaging:11.4.2'
+    def stetho_ver = '1.5.1'
+    debugImplementation "com.facebook.stetho:stetho:$stetho_ver"
+    debugImplementation "com.facebook.stetho:stetho-okhttp3:$stetho_ver"
+    debugImplementation 'com.uphyca:stetho_realm:2.3.0'
+    def version_glide = "4.9.0"
+    implementation "com.github.bumptech.glide:glide:$version_glide"
+    kapt "com.github.bumptech.glide:compiler:$version_glide"
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
+    implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
+
+    def work_version = '2.2.0'
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+
+    //    implementation 'co.zsmb:materialdrawer-kt:1.3.3'
+
+    //SOCKET
+    implementation 'org.zeromq:jeromq:0.5.2-SNAPSHOT'
+    def chart_vers = '3.1.0'
+    implementation "com.github.PhilJay:MPAndroidChart:v$chart_vers"
+    implementation 'com.github.PhilJay:MPAndroidChart-Realm:v3.0.3@aar'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:okhttp:$ok_http_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$ok_http_version"
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    implementation "androidx.lifecycle:lifecycle-runtime:$arch_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$arch_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_version"
+    kapt "androidx.lifecycle:lifecycle-common-java8:$arch_version"
+    implementation 'me.leolin:ShortcutBadger:1.1.22@aar'
+    implementation 'com.github.barteksc:android-pdf-viewer:3.1.0-beta.1'
+
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+    implementation "com.github.hadilq.liveevent:liveevent:1.0.1"
+
+    implementation project(':core')
+
+    // Required -- JUnit 4 framework
+    testImplementation "junit:junit:$junit"
+
+    // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-core:2.23.0'
+
+    androidTestImplementation 'android.arch.core:core-testing:1.1.1'
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso"
+    androidTestImplementation "androidx.test:runner:$rules"
+    androidTestImplementation "androidx.test:rules:$rules"
+    androidTestImplementation "androidx.test.ext:junit:$unit"
+    androidTestImplementation 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
+
+    kapt 'dk.ilios:realmfieldnameshelper:1.1.1'
+    implementation 'androidx.paging:paging-runtime-ktx:2.1.0'
+}
+apply plugin: 'realm-android'
+apply plugin: 'com.google.gms.google-services'

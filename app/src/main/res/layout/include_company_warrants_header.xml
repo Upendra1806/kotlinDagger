@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/titleLayoutWarrantsProduct"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    tools:showIn="@layout/include_company_warrants">
+
+    <TextView
+        android:id="@+id/txtPlusMinus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="26dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/verlag_light"
+        android:gravity="end"
+        android:text="+/-"
+        android:textColor="@color/warmGreyTwo"
+        android:textSize="@dimen/textSizeSmall"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/verlag_light"
+        android:hint="isToRight"
+        android:text="STRIKE"
+        android:textColor="@color/warmGreyTwo"
+        android:textSize="@dimen/textSizeSmall"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="70dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/verlag_light"
+        android:gravity="end"
+        android:text="@string/bid"
+        android:textAllCaps="true"
+        android:textColor="@color/warmGreyTwo"
+        android:textSize="@dimen/textSizeSmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="26dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/verlag_light"
+        android:gravity="end"
+        android:text="@string/ask"
+        android:textAllCaps="true"
+        android:textColor="@color/warmGreyTwo"
+        android:textSize="@dimen/textSizeSmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginStart="29dp"
+        android:background="@color/cardview_dark_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="135dp"
+        android:fontFamily="@font/verlag_light"
+        android:text="Expiry"
+        android:textColor="@color/warmGreyTwo"
+        android:textSize="@dimen/textSizeSmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="210dp"
+        android:fontFamily="@font/verlag_light"
+        android:text="Strike"
+        android:textColor="@color/warmGreyTwo"
+        android:textSize="@dimen/textSizeSmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtPlusMinus" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

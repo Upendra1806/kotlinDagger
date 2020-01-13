@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
+
+    <TextView
+        android:id="@+id/txtTopWarrant"
+        style="@style/AttributeField"
+        android:layout_width="0dp"
+        android:text="@string/top_jb_warrant"
+        app:layout_constraintEnd_toStartOf="@+id/txtOpenTop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/txtOpenTop"
+        style="@style/AttributeField.Value"
+        android:layout_width="wrap_content"
+        android:paddingStart="15dp"
+        android:text="@string/view"
+        android:textColor="@color/deepBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtTopWarrant" />
+
+    <TextView
+        android:id="@+id/txtValor"
+        style="@style/AttributeField"
+        android:layout_width="0dp"
+        android:text="@string/valor"
+        app:layout_constraintEnd_toStartOf="@+id/txtValorValue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTopWarrant" />
+
+    <TextView
+        android:id="@+id/txtValorValue"
+        style="@style/AttributeField.Value"
+        android:layout_width="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtValor"
+        tools:text="123" />
+
+    <TextView
+        android:id="@+id/txtOpening"
+        style="@style/AttributeField"
+        android:layout_width="0dp"
+        android:text="@string/opening"
+        app:layout_constraintEnd_toStartOf="@+id/txtOpeningValue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtValor" />
+
+    <TextView
+        android:id="@+id/txtOpeningValue"
+        style="@style/AttributeField.Value"
+        android:layout_width="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtOpening"
+        tools:text="1.23" />
+
+    <TextView
+        android:id="@+id/txtClosing"
+        style="@style/AttributeField"
+        android:layout_width="0dp"
+        android:text="@string/closing"
+        app:layout_constraintEnd_toStartOf="@+id/txtClosingValue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtOpeningValue" />
+
+    <TextView
+        android:id="@+id/txtClosingValue"
+        style="@style/AttributeField.Value"
+        android:layout_width="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtClosing"
+        tools:text="123" />
+
+    <TextView
+        android:id="@+id/txtHighLow"
+        style="@style/AttributeField"
+        android:layout_width="0dp"
+        android:text="@string/high_low"
+        app:layout_constraintEnd_toStartOf="@+id/txtRatio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtClosing" />
+
+    <TextView
+        android:id="@+id/txtRatio"
+        style="@style/AttributeField.Value"
+        android:layout_width="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtHighLow"
+        tools:text="123" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

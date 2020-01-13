@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="86dp"
+    tools:showIn="@layout/fragment_index_performance">
+
+    <TextView
+        android:id="@+id/txtPriceMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/verlag_book"
+        android:text="@string/price"
+        android:textAllCaps="true"
+        android:textColor="#4C4C4C"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtLastTrade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/verlag_book"
+        android:textColor="#4C4C4C"
+        android:textSize="20sp"
+        tools:text="12.34 CHF"
+        app:layout_constraintBottom_toBottomOf="@+id/txtPriceMax"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/verlag_light"
+        android:textColor="@color/text_grey_darker"
+        android:textSize="@dimen/textSizeSmall"
+        app:layout_constraintBottom_toBottomOf="@+id/txtDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtDate" />
+
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/verlag_light"
+        android:textColor="#4C4C4C"
+        android:textSize="@dimen/textSizeSmall"
+        app:layout_constraintStart_toStartOf="@+id/txtPriceMax"
+        app:layout_constraintTop_toBottomOf="@+id/txtPriceMax" />
+</androidx.constraintlayout.widget.ConstraintLayout>

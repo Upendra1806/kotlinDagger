@@ -1,0 +1,191 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- enable window content transitions -->
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
+
+    <style name="FragStyle">
+        <item name="android:fragmentFadeEnterAnimation">@anim/fade_enter</item>
+        <item name="android:fragmentFadeExitAnimation">@anim/fade_exit</item>
+        <item name="android:fragmentOpenEnterAnimation">@animator/fragment_open_enter</item>
+        <item name="android:fragmentOpenExitAnimation">@animator/fragment_open_exit</item>
+        <item name="android:fragmentCloseEnterAnimation">@animator/fragment_close_enter</item>
+        <item name="android:fragmentCloseExitAnimation">@animator/fragment_close_exit</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/background</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AttributeField">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:fontFamily">@font/verlag_light</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/textSizeNormal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_white_line_bottom</item>
+    </style>
+
+    <style name="AttributeField.Value">
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="BottomNavigationViewTextStyle">
+        <item name="android:fontFamily">@font/verlag_light</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="TabLayoutStyle">
+        <item name="android:layout_marginStart">13dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginEnd">13dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabPaddingTop">0dp</item>
+        <item name="tabPaddingBottom">0dp</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabTextAppearance">@style/TabLayoutTextAppearance</item>
+        <item name="tabBackground">@drawable/bg_tab_round_white</item>
+    </style>
+
+    <style name="TabLayoutStyle.White">
+        <item name="tabTextAppearance">@style/TabLayoutTextAppearance.White</item>
+        <item name="tabBackground">@drawable/bg_tab_round_deep_blue</item>
+        <item name="tabRippleColor">@null</item>
+    </style>
+
+    <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/verlag_book</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="TabLayoutTextAppearance.White">
+        <item name="android:textColor">@color/deepBlue</item>
+    </style>
+
+    <style name="AppBar">
+        <item name="android:background">@color/deepBlue</item>
+    </style>
+
+    <style name="SectionCardLayout">
+        <item name="android:layout_margin">4dp</item>
+        <item name="cardBackgroundColor">@color/background</item>
+        <item name="cardCornerRadius">5dp</item>
+        <item name="cardElevation">1dp</item>
+    </style>
+
+    <style name="SubNavItem">
+        <item name="android:minHeight">50dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:fontFamily">@font/verlag_book</item>
+        <item name="android:textColor">@color/text_grey_darker</item>
+        <item name="android:drawableEnd">@drawable/ic_arrow_right</item>
+    </style>
+
+    <style name="WatchListItemLayout">
+        <item name="android:minHeight">50dp</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="ScreenTitle">
+        <item name="android:minHeight">70dp</item>
+        <item name="android:layout_marginStart">@dimen/screen_title_margin_start</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:fontFamily">@font/verlag_bold</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="ChartIntervalOption">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:background">@drawable/bg_white_line_bottom</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawableEnd">@drawable/btn_check</item>
+        <item name="android:fontFamily">@font/verlag_light</item>
+        <item name="android:textColor">@color/text_grey_darker</item>
+        <item name="android:textSize">@dimen/textSizeNormal</item>
+        <item name="android:thumbTint">@color/colorPrimary</item>
+        <item name="trackTint">@color/deepBlue</item>
+    </style>
+
+    <style name="DialogButton">
+        <item name="android:layout_width">140dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/group_button_white</item>
+        <item name="android:fontFamily">@font/verlag_bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/deepBlue</item>
+        <item name="android:textSize">@dimen/textSizeNormal</item>
+    </style>
+
+    <declare-styleable name="CustomSeekBar">
+        <attr name="max" format="float" />
+        <attr name="min" format="float" />
+        <attr name="reserve" format="float" />
+        <attr name="cells" format="integer" />
+        <attr name="progressHintMode" format="enum">
+            <enum name="defaultMode" value="0" />
+            <enum name="alwaysHide" value="1" />
+            <enum name="alwaysShow" value="2" />
+        </attr>
+        <attr name="lineColorSelected" format="color" />
+        <attr name="lineColorEdge" format="color" />
+        <attr name="thumbPrimaryColor" format="color" />
+        <attr name="thumbSecondaryColor" format="color" />
+        <attr name="markTextArray" format="reference" />
+        <attr name="thumbResId" format="reference" />
+        <attr name="progressHintResId" format="reference" />
+        <attr name="textPadding" format="dimension" />
+        <attr name="textSize" format="dimension" />
+        <attr name="hintBGHeight" format="dimension" />
+        <attr name="hintBGWith" format="dimension" />
+        <attr name="hintBGPadding" format="dimension" />
+        <attr name="seekBarHeight" format="dimension" />
+        <attr name="thumbSize" format="dimension" />
+        <attr name="cellMode" format="enum">
+            <enum name="number" value="0" />
+            <enum name="other" value="1" />
+        </attr>
+        <attr name="seekBarMode" format="enum">
+            <enum name="single" value="1" />
+            <enum name="range" value="2" />
+        </attr>
+        <attr name="markResId" format="reference" />
+        <attr name="showMarkLabels" format="boolean" />
+        <attr name="markTextColor" format="color" />
+        <attr name="markTextSize" format="dimension" />
+        <attr name="markTextMargin" format="dimension" />
+        <attr name="markFontFamily" format="reference" />
+        <attr name="showHintLabels" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="MarkSeekBar">
+        <attr name="markThumb" format="reference" />
+    </declare-styleable>
+</resources>

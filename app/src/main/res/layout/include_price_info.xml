@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/fragment_performance">
+
+    <TextView
+        android:id="@+id/txtBID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/verlag_book"
+        android:text="@string/bid"
+        android:textColor="#4C4C4C"
+        android:textSize="20sp"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtBidValueMarket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/verlag_book"
+        android:textColor="@color/deepBlue"
+        android:textSize="20sp"
+        tools:text="0.12 CHF"
+        app:layout_constraintEnd_toStartOf="@+id/imgVertical"
+        app:layout_constraintTop_toBottomOf="@+id/txtVolume" />
+
+    <ImageView
+        android:id="@+id/imgVertical"
+        android:layout_width="1dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@color/background" />
+
+    <TextView
+        android:id="@+id/txtAskRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/verlag_book"
+        android:text="@string/ask"
+        android:textColor="#4C4C4C"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/imgVertical"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtAskValueMarket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/verlag_book"
+        android:textColor="@color/deepBlue"
+        android:textSize="20sp"
+        tools:text="0.13 CHF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtVolumeRight" />
+
+    <ImageView
+        android:id="@+id/imgHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgVertical"
+        android:src="@color/background" />
+
+    <TextView
+        android:id="@+id/txtVolumeValueInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/verlag_light"
+        android:textColor="#4C4C4C"
+        android:textSize="@dimen/textSizeSmall"
+        tools:text="1,000,000"
+        app:layout_constraintEnd_toStartOf="@+id/imgVertical"
+        app:layout_constraintTop_toTopOf="@+id/txtVolume" />
+
+    <TextView
+        android:id="@+id/txtVolume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/verlag_light"
+        android:text="@string/size"
+        android:textColor="#4C4C4C"
+        android:textSize="@dimen/textSizeSmall"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/txtVolumeValueInfo"
+        app:layout_constraintTop_toBottomOf="@+id/txtBID" />
+
+    <TextView
+        android:id="@+id/txtVolumeRightValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/verlag_light"
+        android:textColor="#4C4C4C"
+        android:textSize="@dimen/textSizeSmall"
+        tools:text="1,000,000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtVolumeRight" />
+
+    <TextView
+        android:id="@+id/txtVolumeRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/verlag_light"
+        android:text="@string/size"
+        android:textColor="#4C4C4C"
+        android:textSize="10sp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/txtVolumeRightValue"
+        app:layout_constraintTop_toBottomOf="@+id/txtAskRight" />
+
+    <TextView
+        android:id="@+id/txtPerformance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/verlag_book"
+        android:text="@string/price"
+        android:textAllCaps="true"
+        android:textColor="#4C4C4C"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgHorizontal" />
+
+    <TextView
+        android:id="@+id/txtPriceChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/verlag_book"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/textSizeSmall"
+        tools:text="+1.63%"
+        tools:textColor="@color/blueGreen"
+        app:layout_constraintBottom_toBottomOf="@id/txtDateValues"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtDateValues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/verlag_light"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSizeSmall"
+        tools:text="@tools:sample/date/ddmmyy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPerformance" />
+</merge>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/verlag_bold"
+        tools:text="WWWW"
+        android:textColor="@color/deepBlue"
+        android:textSize="@dimen/textSizeNormal"
+        app:layout_constraintBottom_toBottomOf="@+id/candleStickChart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/candleStickChart" />
+
+    <TextView
+        android:id="@+id/txtRatio"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="end"
+        android:fontFamily="@font/verlag_light"
+        tools:text="8888.00"
+        android:textSize="@dimen/textSizeNormal"
+        app:layout_constraintBottom_toBottomOf="@+id/candleStickChart"
+        app:layout_constraintStart_toEndOf="@+id/txtTitle"
+        app:layout_constraintTop_toTopOf="@+id/candleStickChart" />
+
+
+    <com.juliusbaer.premarket.ui.customViews.DividerView
+        android:id="@+id/grid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:color="@color/background"
+        app:dividers="5"
+        app:orientation="vertical"
+        app:dividerWidth="3dp"
+        app:showSelected="true"
+        tools:showIn="@layout/candle_stick_card"
+        app:layout_constraintStart_toStartOf="@id/candleStickChart"
+        app:layout_constraintEnd_toEndOf="@id/candleStickChart"
+        app:layout_constraintTop_toTopOf="@id/candleStickChart"
+        app:layout_constraintBottom_toBottomOf="@id/candleStickChart"/>
+
+    <com.juliusbaer.premarket.ui.customViews.CandleStickChart
+        android:id="@+id/candleStickChart"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txtRatio"
+        app:layout_constraintEnd_toStartOf="@id/txtProcent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtProcent"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/verlag_bold"
+        android:layout_marginStart="8dp"
+        android:gravity="end"
+        tools:text="+88.00%"
+        android:textColor="@color/grey_1"
+        android:textSize="@dimen/textSizeNormal"
+        app:layout_constraintBottom_toBottomOf="@+id/candleStickChart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/candleStickChart" />
+</androidx.constraintlayout.widget.ConstraintLayout>

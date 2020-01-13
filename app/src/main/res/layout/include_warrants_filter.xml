@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filterLayout"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:showIn="@layout/fragment_warrants">
+
+    <Button
+        android:id="@+id/txtFilterProducts"
+        android:layout_width="319dp"
+        android:layout_height="44dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_white_round_1dp"
+        android:elevation="2dp"
+        android:fontFamily="@font/verlag_light"
+        android:gravity="center"
+        android:text="@string/filter_products"
+        android:textAllCaps="true"
+        android:textColor="@color/deepBlue"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/filteredByLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filtered_by"
+        android:textColor="@color/text_grey_darker"
+        android:textSize="13sp"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/filteredBy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/deepBlue"
+        android:textSize="13sp"
+        tools:text="Put, Maturity, Strike"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/showAllWarrants"
+        android:layout_width="178dp"
+        android:layout_height="44dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_white_round_1dp"
+        android:elevation="2dp"
+        android:fontFamily="@font/verlag_light"
+        android:gravity="center"
+        android:text="@string/show_all_warrants"
+        android:textAllCaps="true"
+        android:textColor="@color/deepBlue"
+        android:textSize="15sp"
+        android:visibility="gone"
+        tools:visibility="visible" />
+</LinearLayout>

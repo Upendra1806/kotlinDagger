@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="phone_chars" translatable="false">1234567890*+#</string>
+
+    <string name="price">Price</string>
+    <string name="filter_products">Filter Products</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="alerts">Alerts</string>
+
+    <string name="equity">Equity</string>
+    <string name="call">Call</string>
+    <string name="put">Put</string>
+    <string name="range">Range</string>
+
+    <string name="filter">Filter</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="you_are_not_connected_to_internet">You are not connected to the Internet. Please connect to the Internet in order to use Julius Bär PreMarket App</string>
+    <string name="fmt_percent_2_plus">+%.2f%%</string>
+    <string name="fmt_percent_2">%.2f%%</string>
+
+    <string name="successfully_saved">Successfully saved</string>
+
+    <!-- login -->
+    <string name="email_address">E-mail address</string>
+    <string name="login">Login</string>
+    <string name="you_need_to_register_to_access_this_service">You need to register to access this service.  Registration is quick and easy. Simply enter your e-mail address below and validate using the link in the confirmation e-mail sent to your inbox.</string>
+    <string name="go_to_premarket">Go to PreMarket</string>
+    <string name="incorrect_email">Incorrect e-mail</string>
+    <string name="we_have_sent_you_email">We have sent you an e-mail. Please confirm by clicking the link in your mail</string>
+
+    <!-- warrants -->
+    <string name="no_warrants_found">No warrants found</string>
+    <string name="filtered_by">Filtered by:</string>
+    <string name="show_all_warrants">Show all warrants</string>
+
+    <!-- most active -->
+    <string name="top_10_traded_warrants">Top 10 Traded Warrants</string>
+
+    <!-- warrants filter -->
+    <string name="all_warrants">All warrants</string>
+    <string name="category">Category</string>
+    <string name="knock_out_warrants">Knock-out warrants</string>
+    <string name="range_warrants">Range warrants</string>
+    <string name="type">Type</string>
+    <string name="show_12_results">Show results</string>
+    <string name="min_traded_volume">Min. traded volume</string>
+    <string name="maturity">Maturity</string>
+    <string name="equity_price">Equity price:</string>
+    <string name="strike_price_chf">Strike price</string>
+    <string name="show_all">Show all</string>
+
+    <!-- news -->
+    <string name="news">News</string>
+    <string name="are_you_sure_delete_item_from_news">Are you sure you want to delete the item from news?</string>
+    <string name="no_news_found">No news found</string>
+
+    <!-- watchlist -->
+    <string name="underlying">Underlying</string>
+    <string name="warrant">Warrant</string>
+    <string name="index">Index</string>
+    <string name="preciuos_metals">Preciuos metals</string>
+    <string name="high">High</string>
+    <string name="low">Low</string>
+    <string name="your_watch_list_is_empty">Your watchlist is empty</string>
+    <string name="no_results">No results</string>
+    <string name="watchlist_search_hint">Name/ISIN/Valor/Symbol</string>
+    <string name="are_you_sure_delete_from_watchlist">Are you sure you want to delete the item from watchlist?</string>
+
+    <!-- settings -->
+    <string name="your_bank_s_contact">Your bank\'s contact</string>
+    <string name="enter_a_phone_number">Enter a phone number …</string>
+    <string name="save">Save</string>
+
+    <string name="no_alerts">You have not set any alerts yet</string>
+    <string name="push_notifications">Push notifications</string>
+    <string name="activated_for_alerts">Activated for Alerts</string>
+    <string name="activated_for_all_news">Activated for all News</string>
+    <string name="underlyings_are_displayed_as">Underlyings are displayed as</string>
+    <string name="japanese_candlesticks">Japanese candlesticks</string>
+    <string name="time_frame_for_performance_graph_underlyings">Time frame for performance graph (underlyings)</string>
+    <string name="time_frame_for_performance_graph_fx">Time frame for Performance graph\n(FX and Precious metals)</string>
+    <string name="push_notifications_are_switched_off_by_device_settings">Push notifications are switched off by device settings</string>
+
+    <!-- alerts -->
+    <string name="are_you_sure_unset_all_alerts">Are you sure you want to unset all the alerts?</string>
+    <string name="are_you_sure_dont_want_receive_alerts">Are you sure you don\'t want to receive the alerts anymore?</string>
+    <string name="are_you_sure_dont_want_receive_alerts_by_pair">Are you sure you don\'t want to receive alerts by pair? No criteria are chosen.</string>
+    <string name="are_you_sure_dont_want_receive_alerts_by_index">Are you sure you don\'t want to receive alerts by the index? No criteria are chosen.</string>
+    <string name="are_you_sure_dont_want_receive_alerts_by_warrant">Are you sure you don\'t want to receive alerts by the warrant? No criteria are chosen.</string>
+    <string name="are_you_sure_dont_want_receive_alerts_by_underlying">Are you sure you don\'t want to receive alerts by the underlying? No criteria are chosen.</string>
+    <string name="delete">Delete</string>
+    <string name="delete_all">Delete all</string>
+    <string name="manage_alerts">Manage alerts</string>
+
+    <string name="delete_alert">DELETE ALERT?</string>
+    <string name="set_alert">Set alert</string>
+    <string name="time_to_expiry_in_days">Time to expiry (in days)</string>
+    <string name="save_settings">Save settings</string>
+    <string name="set_alert_on">Set alert on %s</string>
+    <string name="n_days">%d Days</string>
+
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="save_trader_s_number">Call your bank</string>
+
+    <string name="open_settings">Retry</string>
+    <string name="notification_text" translatable="false">JB Premarket: You have a new publication</string>
+    <string name="notification_title">JB Premarket</string>
+    <string name="new_articles">%d new publications</string>
+
+    <!-- contact -->
+    <string name="first">Bank Julius Baer provides daily tradeable premarket quotes on all SMI stocks as well as on a selected choice of Swiss mid–caps stocks between 08:00 – 08:45 h.\nWe are pleased to accept your orders through your own bank or call our Julius Baer trading desk directly at +41 (0)58 888 8680.</string>
+    <string name="contact_source_of_the_news">Source of the news is Bank Julius Baer &amp; Co. Ltd.. The published news are intended for information purposes only and is not binding on the Bank.</string>
+    <string name="contact_top_warrants">Top Warrants are marked with a star symbol \u2605.\nTop Warrants are neither top in terms of pricing or volume, but are regarded as the most suitable and commonly chosen Warrants.\nAny person using the app must check the terms and their suitability in any case.</string>
+    <string name="second">Julius Baer is a leading issuer of Structured Products and Warrants in Switzerland. A solid balance sheet with a strong equity ratio make the bank an attractive partner for private clients, family offices, banks and independent asset managers. Measured by traded volume at the stock exchange, Julius Baer is one of the top five issuers in the Swiss market. This excellent market position is due to bank\'s high-quality product range and client service.
+\n\nYou can count on a team of experienced derivatives advisors who are happy to assist you.
+\n\nvia telephone +41 (0)58 888 81 81
+\nYou can reach us on working days from 08:00 till 17:30
+\n\nvia Email derivatives@juliusbaer.com
+\nPlease contact us at any time via email
+\n\nor visit https://derivatives.juliusbaer.com</string>
+    <string name="contact_support">Opening hours: Monday to Friday 8:00–20:00 CET\nToll free number: +800 0800 45 45\nStandard rates: +41 (0)58 888 45 45</string>
+
+    <string name="maturity_month_format">%d Months</string>
+
+    <string name="current_price">Current price:</string>
+
+    <!-- disclaimer -->
+    <string name="accept_and_enter">Accept &amp; Enter</string>
+    <string name="from">Equities: from 8:00–8:45 we show our own, real–time tradable premarket quotes. From 9:00–17:30 we show delayed quotes from SIX Swiss Exchange Ltd.\nIndices: we show delayed quotes from different sources (see Legal terms market data).\nWarrants: we show our own real-time quotes.\nFX/PM: we show our own real-time mid-quotes.\nThe published data is intended for information purposes only and is not binding on the Bank (see legal disclaimer).</string>
+    <string name="ok">OK</string>
+
+    <!-- company / index performance -->
+    <string name="bid">Bid</string>
+    <string name="ask">Ask</string>
+    <string name="size">Size</string>
+
+    <string name="opening">Opening</string>
+    <string name="high_low">High/Low intraday</string>
+    <string name="top_jb_warrant">Top JB-Warrant</string>
+    <string name="view">View</string>
+
+    <!-- warrant detail -->
+    <string name="traded_volume">Traded volume</string>
+    <string name="valor">Valor</string>
+    <string name="cap">Cap</string>
+    <string name="floor">Floor</string>
+    <string name="strike">Strike</string>
+    <string name="expiry">Expiry</string>
+    <string name="closing">Closing</string>
+    <string name="ratio">Ratio</string>
+    <string name="volatility">Volatility</string>
+    <string name="delta">Delta</string>
+    <string name="currency">Currency</string>
+    <string name="leverage">Leverage</string>
+    <string name="gearing">Gearing</string>
+    <string name="days_within_range">Days within range</string>
+    <string name="max_payout">Max payout</string>
+    <string name="daily_payment">Daily payment</string>
+    <string name="knock_out">Knock-Out</string>
+    <string name="trading_days_to_maturity">Trading days to maturity</string>
+
+    <!-- markets -->
+    <string name="markets">Markets</string>
+    <string name="indices">Indices</string>
+    <string name="fx">FX</string>
+    <string name="precious_metals">Precious metals</string>
+
+    <!-- fx -->
+    <string name="chf">CHF</string>
+    <string name="usd_s">USD ($)</string>
+    <string name="eur_e">EUR (€)</string>
+    <string name="fmt_fx_last_updated_date">d MMM yyyy, H:mm</string>
+    <string name="fmt_fx_last_updated">Mid, %s CEST</string>
+    <string name="gold">Gold</string>
+    <string name="silver">Silver</string>
+    <string name="platinum">Platinum</string>
+    <string name="palladium">Palladium</string>
+
+    <string name="days_moving_average_50">50-day moving average</string>
+    <string name="days_moving_average_100">100-day moving average</string>
+    <string name="days_moving_average_200">200-day moving average</string>
+
+    <!-- screen titles -->
+    <string name="jb_mid_cap">JB Mid Cap</string>
+    <string name="jb_smi">JB SMI</string>
+    <string name="settings">Settings</string>
+
+    <string name="warrants">Warrants</string>
+    <string name="disclaimer">Disclaimer</string>
+    <string name="contact">Contact</string>
+    <string name="equities">Equities</string>
+    <string name="performance">Performance</string>
+    <string name="most_active">Most Active</string>
+    <string name="news_overview">News – Overview</string>
+    <string name="terms_of_use">Terms of use</string>
+    <string name="market_data">Market data</string>
+    <string name="no_warrants_for_selected_equity">There are no corresponding warrants for selected equity</string>
+
+    <!-- navigation -->
+    <string name="more">More</string>
+    <string name="back">Back</string>
+
+    <!-- chart -->
+    <string name="intraday">Intraday</string>
+    <string name="one_month">1 Month</string>
+    <string name="three_months">3 Months</string>
+    <string name="six_months">6 Months</string>
+    <string name="one_year">1 Year</string>
+    <string name="no_data">No data</string>
+
+</resources>

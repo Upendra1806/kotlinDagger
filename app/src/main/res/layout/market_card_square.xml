@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.juliusbaer.premarket.ui.customViews.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:layout_width="79dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:elevation="3dp"
+        tools:background="@color/deepBlue">
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/verlag_book"
+            android:maxLines="2"
+            android:padding="5dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Julius Baer" />
+
+        <TextView
+            android:id="@+id/txtPercent1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/verlag_bold"
+            android:text="+0.00%"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSizeNormal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/txtBid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/verlag_light"
+            android:text="0.00"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSizeNormal"
+            app:layout_constraintBottom_toTopOf="@+id/txtPercent1"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.juliusbaer.premarket.ui.customViews.SquareFrameLayout>
