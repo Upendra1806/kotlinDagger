@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.os.Build
 import androidx.core.app.NotificationManagerCompat
-import com.juliusbaer.premarket.BuildConfig
+import com.juliusbaer.premarket.core.BuildConfig
 import com.juliusbaer.premarket.dataFlow.IDataManager
 import com.juliusbaer.premarket.dataFlow.database.IDbHelper
 import com.juliusbaer.premarket.dataFlow.database.model.stat.NewsReadingsStat

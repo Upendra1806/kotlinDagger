@@ -5,6 +5,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.juliusbaer.premarket.core.BuildConfig
 import com.juliusbaer.premarket.core.di.AppInitializer
 import com.juliusbaer.premarket.dataFlow.IUserStorage
 import com.juliusbaer.premarket.di.AppComponent

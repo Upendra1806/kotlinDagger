@@ -29,6 +29,20 @@
         app:layout_constraintTop_toBottomOf="@+id/tabLayout"
         />
 
+    <com.juliusbaer.premarket.helpers.chart.PerformanceCandleChart
+        android:id="@+id/candleChart"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        />
+
     <ImageView
         android:id="@+id/landingActionButton"
         android:layout_width="36dp"

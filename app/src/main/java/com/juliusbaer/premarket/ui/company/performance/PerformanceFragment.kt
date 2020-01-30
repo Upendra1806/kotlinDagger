@@ -11,6 +11,8 @@ import com.google.android.material.tabs.TabLayout
 import com.juliusbaer.premarket.R
 import com.juliusbaer.premarket.dataFlow.NetworkStateManager
 import com.juliusbaer.premarket.helpers.chart.ChartInterval
+import com.juliusbaer.premarket.models.CandleStickModel.CandleChartData
+import com.juliusbaer.premarket.models.CandleStickModel.CandleData
 import com.juliusbaer.premarket.models.responseModel.Resource
 import com.juliusbaer.premarket.models.serverModels.ProductUpdateModel
 import com.juliusbaer.premarket.models.serverModels.UnderlyingModel
@@ -102,9 +104,24 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
             progressDialog.hide()
             when (it) {
                 is Resource.Success -> {
-                    chart.clear()
+                   /* chart.clear()
                     val (result, period) = it.data
-                    chart.setData(result.data?: emptyList(), period, result.xAxisInterval)
+                    chart.setData(result.data?: emptyList(), period, result.xAxisInterval)*/
+
+                    candleChart.clear()
+                    val (result, period) = it.data
+                    var chartDataEntries = it.data.first.data;
+                    var listCandleData = ArrayList<CandleData>()
+                    for( data in chartDataEntries!!)
+                    {
+                        var candleData=CandleData(10f,1f,6f,3f,data.x,data.y)
+                       listCandleData.add(candleData)
+
+                    }
+
+                    var candleChartData = CandleChartData(listCandleData,it.data.second.interval)
+
+                    candleChart.setData(candleChartData.data?: emptyList(),period,candleChartData.xAxisInterval)
                 }
                 is Resource.Failure -> {
                     it.data?.let { (result, period) ->
