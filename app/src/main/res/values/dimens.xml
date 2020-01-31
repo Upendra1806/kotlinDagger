@@ -9,4 +9,6 @@
     <dimen name="positive_line_margin_start">10dp</dimen>
     <dimen name="textSizeNormal">14sp</dimen>
     <dimen name="textSizeSmall">12sp</dimen>
+    <dimen name="icon_size_normal">36dp</dimen>
+    <dimen name="icon_size_small">24dp</dimen>
 </resources>

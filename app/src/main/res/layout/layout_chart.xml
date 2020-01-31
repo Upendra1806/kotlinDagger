@@ -54,4 +54,18 @@
         app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/chart" />
+
+
+    <ImageView
+        android:id="@+id/toggleGraph"
+        android:layout_width="@dimen/icon_size_small"
+        android:layout_height="@dimen/icon_size_small"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="18dp"
+        android:clickable="true"
+        android:tint="@color/deepBlue"
+        android:src="@drawable/ic_candlestick"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

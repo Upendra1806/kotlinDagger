@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.layout_chart.*
 
 class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
     private val viewModel by viewModels<PerformanceViewModel> { viewModelFactory }
+    private var isLine = true
 
     companion object {
         private const val ARG_PRODUCT_ID = "productId"
@@ -78,6 +79,21 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
         landingActionButton.setOnClickListener {
             startActivity(ChartActivity.newIntent(requireContext(), productId, ticker, periods, periods[tabLayout.selectedTabPosition]))
         }
+
+        toggleGraph.setOnClickListener{
+            if(isLine)
+            {
+                chart.visibility = View.GONE
+                candleChart.visibility = View.VISIBLE
+                toggleGraph.setImageResource(R.drawable.ic_boxes)
+                isLine = false
+            }else{
+                chart.visibility = View.VISIBLE
+                candleChart.visibility = View.GONE
+                toggleGraph.setImageResource(R.drawable.ic_candlestick)
+                isLine = true
+            }
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -104,24 +120,26 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
             progressDialog.hide()
             when (it) {
                 is Resource.Success -> {
-                   /* chart.clear()
-                    val (result, period) = it.data
-                    chart.setData(result.data?: emptyList(), period, result.xAxisInterval)*/
+                    if(isLine) {
+                        chart.clear()
+                        val (result, period) = it.data
+                        chart.setData(result.data ?: emptyList(), period, result.xAxisInterval)
+                    }else {
+                        //Todo need to remove dummy data for candle stick
+                        candleChart.clear()
+                        val (result, period) = it.data
+                        var chartDataEntries = it.data.first.data;
+                        var listCandleData = ArrayList<CandleData>()
+                        for (data in chartDataEntries!!) {
+                            var candleData = CandleData(10f, 1f, 6f, 3f, data.x, data.y)
+                            listCandleData.add(candleData)
 
-                    candleChart.clear()
-                    val (result, period) = it.data
-                    var chartDataEntries = it.data.first.data;
-                    var listCandleData = ArrayList<CandleData>()
-                    for( data in chartDataEntries!!)
-                    {
-                        var candleData=CandleData(10f,1f,6f,3f,data.x,data.y)
-                       listCandleData.add(candleData)
+                        }
+                        var candleChartData = CandleChartData(listCandleData, it.data.second.interval)
 
+                        candleChart.setData(candleChartData.data
+                                ?: emptyList(), period, candleChartData.xAxisInterval)
                     }
-
-                    var candleChartData = CandleChartData(listCandleData,it.data.second.interval)
-
-                    candleChart.setData(candleChartData.data?: emptyList(),period,candleChartData.xAxisInterval)
                 }
                 is Resource.Failure -> {
                     it.data?.let { (result, period) ->
