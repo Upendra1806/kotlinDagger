@@ -21,6 +21,7 @@ import com.juliusbaer.premarket.ui.base.NavigationHost
 import com.juliusbaer.premarket.ui.chart.ChartActivity
 import com.juliusbaer.premarket.ui.company.topWarrants.CompanyTopWarrantsFragment
 import com.juliusbaer.premarket.ui.fragments.extentions.*
+import com.juliusbaer.premarket.utils.Constants
 import com.juliusbaer.premarket.utils.Constants.DATE_FORMAT
 import kotlinx.android.synthetic.main.fragment_performance.*
 import kotlinx.android.synthetic.main.include_company_performance_values.*
@@ -30,7 +31,8 @@ import kotlinx.android.synthetic.main.layout_chart.*
 
 class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
     private val viewModel by viewModels<PerformanceViewModel> { viewModelFactory }
-    private var isLine = true
+    private var chartType = Constants.ChartConstant.LINE_CHART
+    private var mPosition =0;
 
     companion object {
         private const val ARG_PRODUCT_ID = "productId"
@@ -69,6 +71,7 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
 
             override fun onTabSelected(tab: TabLayout.Tab) {
                 updateBtn(periods[tab.position])
+                mPosition = tab.position
             }
         })
         txtOpenTop.setOnClickListener {
@@ -81,17 +84,21 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
         }
 
         toggleGraph.setOnClickListener{
-            if(isLine)
-            {
-                chart.visibility = View.GONE
-                candleChart.visibility = View.VISIBLE
-                toggleGraph.setImageResource(R.drawable.ic_boxes)
-                isLine = false
-            }else{
-                chart.visibility = View.VISIBLE
-                candleChart.visibility = View.GONE
-                toggleGraph.setImageResource(R.drawable.ic_candlestick)
-                isLine = true
+
+            when(chartType){
+                Constants.ChartConstant.LINE_CHART->{
+                    chart.visibility = View.INVISIBLE
+                    candleChart.visibility = View.VISIBLE
+                    toggleGraph.setImageResource(R.drawable.ic_boxes)
+                    viewModel.setChartType(Constants.ChartConstant.LINE_CHART)
+
+                }
+                Constants.ChartConstant.CANDLE_CHART->{
+                    chart.visibility = View.VISIBLE
+                    candleChart.visibility = View.INVISIBLE
+                    toggleGraph.setImageResource(R.drawable.ic_candlestick)
+                    viewModel.setChartType(Constants.ChartConstant.LINE_CHART)
+                }
             }
         }
     }
@@ -120,26 +127,9 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
             progressDialog.hide()
             when (it) {
                 is Resource.Success -> {
-                    if(isLine) {
-                        chart.clear()
-                        val (result, period) = it.data
-                        chart.setData(result.data ?: emptyList(), period, result.xAxisInterval)
-                    }else {
-                        //Todo need to remove dummy data for candle stick
-                        candleChart.clear()
-                        val (result, period) = it.data
-                        var chartDataEntries = it.data.first.data;
-                        var listCandleData = ArrayList<CandleData>()
-                        for (data in chartDataEntries!!) {
-                            var candleData = CandleData(10f, 1f, 6f, 3f, data.x, data.y)
-                            listCandleData.add(candleData)
-
-                        }
-                        var candleChartData = CandleChartData(listCandleData, it.data.second.interval)
-
-                        candleChart.setData(candleChartData.data
-                                ?: emptyList(), period, candleChartData.xAxisInterval)
-                    }
+                    chart.clear()
+                    val (result, period) = it.data
+                    chart.setData(result.data ?: emptyList(), period, result.xAxisInterval)
                 }
                 is Resource.Failure -> {
                     it.data?.let { (result, period) ->
@@ -148,6 +138,23 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
                     if (!it.hasBeenHandled) parseError(it.e()!!)
                 }
             }
+        })
+        viewModel.candleChartLiveData.observe(viewLifecycleOwner, Observer {
+            progressDialog.hide()
+            when (it) {
+                is Resource.Success -> {
+                    //TODO need to handle
+                }
+                is Resource.Failure -> {
+                    //TODO need to handle
+                    if (!it.hasBeenHandled) parseError(it.e()!!)
+                }
+            }
+        })
+
+        viewModel.getChartType().observe(viewLifecycleOwner, Observer {
+            chartType = it
+            updateBtn(periods[mPosition])
         })
     }
 
@@ -180,7 +187,16 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
 
     private fun updateBtn(period: ChartInterval) {
         if (isFirstStart) progressDialog.show()
-        viewModel.getChartDataResult(productId, period)
+        when(chartType)
+        {
+            Constants.ChartConstant.LINE_CHART->{
+                viewModel.getChartDataResult(productId, period)
+            }
+            Constants.ChartConstant.CANDLE_CHART->{
+                viewModel.getCandleChartDataResult(productId, period)
+            }
+        }
+
     }
 
     private fun uiUpdate(product: ProductUpdateModel) {
@@ -236,5 +252,23 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
     override fun onPause() {
         viewModel.unsubscribeFromRtUpdates()
         super.onPause()
+    }
+
+    fun dummyCandleChart(){
+        //Todo need to remove dummy data for candle stick
+/*        candleChart.clear()
+        val (result, period) = it.data
+        var chartDataEntries = it.data.first.data;
+        var listCandleData = ArrayList<CandleData>()
+        for (data in chartDataEntries!!) {
+            var candleData = CandleData(10f, 1f, 6f, 3f, data.x, data.y)
+            listCandleData.add(candleData)
+
+        }
+        var candleChartData = CandleChartData(listCandleData, it.data.second.interval)
+
+        candleChart.setData(candleChartData.data
+                ?: emptyList(), period, candleChartData.xAxisInterval)
+    }*/
     }
 }

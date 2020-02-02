@@ -24,4 +24,12 @@ object Constants {
     const val PRECISION = 2
 
     val swissZoneId: ZoneId = ZoneId.of("Europe/Zurich")
+
+    interface ChartConstant{
+
+        companion object{
+            val LINE_CHART:String = "lineChart"
+            val CANDLE_CHART :String = "candleChart"
+        }
+    }
 }
