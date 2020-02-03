@@ -24,9 +24,6 @@ class FxDetailViewModel @Inject constructor(
         private val storage: IUserStorage,
         socket: ZeroMQHandler,
         gson: Gson): SocketVM(socket, gson) {
-    private val chartLiveDataMut = MutableLiveData<Resource<Pair<ChartData, ChartInterval>>>()
-    val chartLiveData: LiveData<Resource<Pair<ChartData, ChartInterval>>>
-        get() = chartLiveDataMut
 
     private val itemLiveDataMut = MutableLiveData<Resource<FxModel>>()
     val itemLiveData: LiveData<Resource<FxModel>>
@@ -43,18 +40,6 @@ class FxDetailViewModel @Inject constructor(
     fun isTokenValid(): Boolean = storage.getToken() != ""
 
     fun isConfirmed(): Boolean = storage.isConfirmed()
-
-    fun getChartDataResult(id: Int, period: ChartInterval) {
-        viewModelScope.launch {
-            chartLiveDataMut.value = try {
-                val result = dataManager.getChartDataResult(id, period)
-                Resource.success(Pair(result, period))
-            } catch (throwable: Throwable) {
-                val result = database.getChartData(id, period.v)
-                Resource.failure(throwable, if (result != null) Pair(result, period) else null)
-            }
-        }
-    }
 
     fun loadFxModel(id: Int, type: FxType) {
         viewModelScope.launch {

@@ -19,4 +19,9 @@ internal abstract class ChartModule {
     @IntoMap
     @ViewModelKey(LandingChartViewModel::class)
     abstract fun bindLandingChartViewModel(landingChartViewModel: LandingChartViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BaseChartViewModel::class)
+    abstract fun bindBaseChartViewModel(baseChartViewModel: BaseChartViewModel): ViewModel
 }

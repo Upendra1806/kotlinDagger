@@ -19,6 +19,7 @@ import com.juliusbaer.premarket.ui.fragments.extentions.format
 import com.juliusbaer.premarket.ui.fragments.extentions.formatDate
 import com.juliusbaer.premarket.ui.fragments.extentions.formatPercent
 import com.juliusbaer.premarket.ui.fragments.extentions.round
+import com.juliusbaer.premarket.utils.Constants
 import com.juliusbaer.premarket.utils.Constants.DATE_FORMAT
 import kotlinx.android.synthetic.main.include_company_performance_values.*
 import kotlinx.android.synthetic.main.include_performance_prices.*
@@ -26,6 +27,8 @@ import kotlinx.android.synthetic.main.layout_chart.*
 
 
 class IndexPerformanceFragment : BaseNFragment(R.layout.fragment_index_performance) {
+    private var mPosition =0
+
     companion object {
         private const val EXTRA_COLLECTION_ID = "collectionId"
 
@@ -66,11 +69,16 @@ class IndexPerformanceFragment : BaseNFragment(R.layout.fragment_index_performan
             }
 
             override fun onTabSelected(tab: TabLayout.Tab) {
+                mPosition = tab.position
                 updateBtn(periods[tab.position])
             }
         })
         landingActionButton.setOnClickListener {
             startActivity(ChartActivity.newIntent(requireContext(), productId, ticker, periods, periods[tabLayout.selectedTabPosition]))
+        }
+
+        toggleGraph.setOnClickListener{
+          toggleGraph()
         }
     }
 
@@ -97,23 +105,7 @@ class IndexPerformanceFragment : BaseNFragment(R.layout.fragment_index_performan
             viewModel.updateIndex(it)
             updateUiFromSocket(it)
         })
-        viewModel.chartLiveData.observe(viewLifecycleOwner, Observer {
-            progressDialog.hide()
-            when (it) {
-                is Resource.Success -> {
-                    chart.clear()
-
-                    val (result, period) = it.data
-                    chart.setData(result.data ?: emptyList(), period, result.xAxisInterval)
-                }
-                is Resource.Failure -> {
-                    it.data?.let { (result, period) ->
-                        chart.setData(result.data ?: emptyList(), period, result.xAxisInterval)
-                    }
-                    if (!it.hasBeenHandled) parseError(it.e()!!)
-                }
-            }
-        })
+        showGraph(productId,periods[mPosition])
     }
 
     private fun setItemVisibility() {
@@ -142,7 +134,7 @@ class IndexPerformanceFragment : BaseNFragment(R.layout.fragment_index_performan
 
     private fun updateBtn(period: ChartInterval) {
         progressDialog.show()
-        viewModel.getChartDataResult(productId, period)
+        updateChart(productId,period)
     }
 
     private fun updateUiFromSocket(product: ProductUpdateModel) {

@@ -82,6 +82,8 @@ class FxDetailFragment : BaseNFragment(R.layout.fragment_fx_detail), HasOfflineP
     @Inject
     lateinit var statisticsManager: StatisticsManager
 
+    private var mPosition =0
+
     private val periods = arrayListOf(ChartInterval.INTRADAY, ChartInterval.ONE_MONTH, ChartInterval.THREE_MONTH, ChartInterval.SIX_MONTH)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,9 +138,13 @@ class FxDetailFragment : BaseNFragment(R.layout.fragment_fx_detail), HasOfflineP
             }
 
             override fun onTabSelected(tab: TabLayout.Tab) {
+                mPosition = tab.position
                 updateBtn(periods[tab.position])
             }
         })
+        toggleGraph.setOnClickListener{
+            toggleGraph()
+        }
         landingActionButton.setOnClickListener {
             startActivity(ChartActivity.newIntent(requireContext(), productId, title, periods, periods[tabLayout.selectedTabPosition], precision))
         }
@@ -174,23 +180,6 @@ class FxDetailFragment : BaseNFragment(R.layout.fragment_fx_detail), HasOfflineP
         viewModel.productModelLiveData.observe(viewLifecycleOwner, Observer {
             updateUiFromSocket(it)
         })
-        viewModel.chartLiveData.observe(viewLifecycleOwner, Observer {
-            progressDialog.hide()
-            when (it) {
-                is Resource.Success -> {
-                    chart.clear()
-
-                    val (result, period) = it.data
-                    chart.setData(result.data ?: emptyList(), period, result.xAxisInterval)
-                }
-                is Resource.Failure -> {
-                    it.data?.let { (result, period) ->
-                        chart.setData(result.data ?: emptyList(), period, result.xAxisInterval)
-                    }
-                    if (!it.hasBeenHandled) parseError(it.e()!!)
-                }
-            }
-        })
         viewModel.watchListDelLiveData.observe(viewLifecycleOwner, Observer {
             progressDialog.hide()
             isImgStarTrue = false
@@ -210,6 +199,7 @@ class FxDetailFragment : BaseNFragment(R.layout.fragment_fx_detail), HasOfflineP
             }
         })
         statisticsManager.onProductStart(productId, 0, if (isPush) 1 else 0)
+        showGraph(productId,periods[mPosition])
     }
 
     private fun updateUIFromApi(item: FxModel) {
@@ -254,7 +244,7 @@ class FxDetailFragment : BaseNFragment(R.layout.fragment_fx_detail), HasOfflineP
 
     private fun updateBtn(period: ChartInterval) {
         progressDialog.show()
-        viewModel.getChartDataResult(productId, period)
+        updateChart(productId,period)
     }
 
     private fun updateUiFromSocket(product: ProductUpdateModel) {

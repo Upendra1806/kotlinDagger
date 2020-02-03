@@ -31,7 +31,6 @@ import kotlinx.android.synthetic.main.layout_chart.*
 
 class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
     private val viewModel by viewModels<PerformanceViewModel> { viewModelFactory }
-    private var chartType = Constants.ChartConstant.LINE_CHART
     private var mPosition =0;
 
     companion object {
@@ -70,8 +69,8 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab) {
-                updateBtn(periods[tab.position])
                 mPosition = tab.position
+                updateBtn(periods[tab.position])
             }
         })
         txtOpenTop.setOnClickListener {
@@ -84,22 +83,7 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
         }
 
         toggleGraph.setOnClickListener{
-
-            when(chartType){
-                Constants.ChartConstant.LINE_CHART->{
-                    chart.visibility = View.INVISIBLE
-                    candleChart.visibility = View.VISIBLE
-                    toggleGraph.setImageResource(R.drawable.ic_boxes)
-                    viewModel.setChartType(Constants.ChartConstant.LINE_CHART)
-
-                }
-                Constants.ChartConstant.CANDLE_CHART->{
-                    chart.visibility = View.VISIBLE
-                    candleChart.visibility = View.INVISIBLE
-                    toggleGraph.setImageResource(R.drawable.ic_candlestick)
-                    viewModel.setChartType(Constants.ChartConstant.LINE_CHART)
-                }
-            }
+          toggleGraph()
         }
     }
 
@@ -123,39 +107,7 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
         viewModel.productModelLiveData.observe(viewLifecycleOwner, Observer {
             uiUpdate(it)
         })
-        viewModel.chartLiveData.observe(viewLifecycleOwner, Observer {
-            progressDialog.hide()
-            when (it) {
-                is Resource.Success -> {
-                    chart.clear()
-                    val (result, period) = it.data
-                    chart.setData(result.data ?: emptyList(), period, result.xAxisInterval)
-                }
-                is Resource.Failure -> {
-                    it.data?.let { (result, period) ->
-                        chart.setData(result.data?: emptyList(), period, result.xAxisInterval)
-                    }
-                    if (!it.hasBeenHandled) parseError(it.e()!!)
-                }
-            }
-        })
-        viewModel.candleChartLiveData.observe(viewLifecycleOwner, Observer {
-            progressDialog.hide()
-            when (it) {
-                is Resource.Success -> {
-                    //TODO need to handle
-                }
-                is Resource.Failure -> {
-                    //TODO need to handle
-                    if (!it.hasBeenHandled) parseError(it.e()!!)
-                }
-            }
-        })
-
-        viewModel.getChartType().observe(viewLifecycleOwner, Observer {
-            chartType = it
-            updateBtn(periods[mPosition])
-        })
+        showGraph(productId,periods[mPosition])
     }
 
     private fun populateUnderlyingUI(item: UnderlyingModel) {
@@ -187,15 +139,7 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
 
     private fun updateBtn(period: ChartInterval) {
         if (isFirstStart) progressDialog.show()
-        when(chartType)
-        {
-            Constants.ChartConstant.LINE_CHART->{
-                viewModel.getChartDataResult(productId, period)
-            }
-            Constants.ChartConstant.CANDLE_CHART->{
-                viewModel.getCandleChartDataResult(productId, period)
-            }
-        }
+        updateChart(productId,period)
 
     }
 
