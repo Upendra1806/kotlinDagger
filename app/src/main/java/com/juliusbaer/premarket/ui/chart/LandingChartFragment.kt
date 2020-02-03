@@ -13,7 +13,9 @@ import com.juliusbaer.premarket.ui.base.BaseNFragment
 import com.juliusbaer.premarket.ui.base.HasOfflinePlaceHolder
 import com.juliusbaer.premarket.utils.Constants
 import kotlinx.android.synthetic.main.landing_chart_fragment.*
-
+import kotlinx.android.synthetic.main.landing_chart_fragment.chart
+import kotlinx.android.synthetic.main.landing_chart_fragment.tabLayout
+import kotlinx.android.synthetic.main.landing_chart_fragment.toggleGraph
 
 class LandingChartFragment : BaseNFragment(R.layout.landing_chart_fragment), HasOfflinePlaceHolder {
     companion object {
@@ -22,23 +24,25 @@ class LandingChartFragment : BaseNFragment(R.layout.landing_chart_fragment), Has
         private const val ARG_TITLE = "title"
         private const val ARG_PERIODS = "periods"
         private const val ARG_INTERVAL = "interval"
+        private const val ARG_CHART_TYPE = "chartType"
 
         fun newInstance(itemId: Int,
                         title: String,
                         periods: ArrayList<ChartInterval>,
                         period: ChartInterval,
-                        precision: Int = Constants.PRECISION) = LandingChartFragment().apply {
+                        precision: Int = Constants.PRECISION, chartType: String) = LandingChartFragment().apply {
             arguments = Bundle().apply {
                 putInt(ARG_COLLECTION_ID, itemId)
                 putInt(ARG_PRECISION, precision)
                 putString(ARG_TITLE, title)
                 putSerializable(ARG_PERIODS, periods)
                 putSerializable(ARG_INTERVAL, period)
+                putSerializable(ARG_CHART_TYPE, chartType)
             }
         }
     }
 
-    private val viewModel by viewModels<LandingChartViewModel> { viewModelFactory }
+    private val viewModel by viewModels<BaseChartViewModel> { viewModelFactory }
 
     private val collectionId by lazy {
         requireArguments().getInt(ARG_COLLECTION_ID)
@@ -55,15 +59,20 @@ class LandingChartFragment : BaseNFragment(R.layout.landing_chart_fragment), Has
     private val periods by lazy {
         requireArguments().getSerializable(ARG_PERIODS) as List<ChartInterval>
     }
+    private var currentPosition = 0
+    private var chartType = Constants.ChartConstant.LINE_CHART
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         titleChart.text = title
+        chartType = requireArguments().getString(ARG_CHART_TYPE)
+
 
         for (period in periods) {
             tabLayout.addTab(tabLayout.newTab().setText(period.strResId), false)
         }
         val pos = periods.indexOf(interval)
+        currentPosition = pos
         tabLayout.getTabAt(pos)?.select()
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -74,9 +83,28 @@ class LandingChartFragment : BaseNFragment(R.layout.landing_chart_fragment), Has
             }
 
             override fun onTabSelected(tab: TabLayout.Tab) {
-                updateBtn(periods[tab.position])
+                currentPosition = tab.position
+                updateBtn(periods[currentPosition])
             }
         })
+        toggleGraph.setOnClickListener {
+            when (mChartType) {
+                Constants.ChartConstant.LINE_CHART -> {
+                    chart.visibility = View.INVISIBLE
+                    candleChart.visibility = View.VISIBLE
+                    toggleGraph.setImageResource(R.drawable.ic_boxes)
+                    chartType = Constants.ChartConstant.CANDLE_CHART
+                    updateBtn(periods[currentPosition])
+                }
+                Constants.ChartConstant.CANDLE_CHART -> {
+                    chart.visibility = View.VISIBLE
+                    candleChart.visibility = View.INVISIBLE
+                    toggleGraph.setImageResource(R.drawable.ic_candlestick)
+                    chartType = Constants.ChartConstant.CANDLE_CHART
+                    updateBtn(periods[currentPosition])
+                }
+            }
+        }
         iconBack.setOnClickListener { activity?.onBackPressed() }
         chart.precision = arguments?.getInt(ARG_PRECISION) ?: Constants.PRECISION
     }
@@ -102,6 +130,20 @@ class LandingChartFragment : BaseNFragment(R.layout.landing_chart_fragment), Has
                 }
             }
         })
+
+        viewModel.candleChartLiveData.observe(viewLifecycleOwner, Observer {
+            progressDialog.hide()
+            when (it) {
+                is Resource.Success -> {
+                    //TODO need to handle
+                }
+                is Resource.Failure -> {
+                    //TODO need to handle
+                    if (!it.hasBeenHandled) parseError(it.e()!!)
+                }
+            }
+
+        })
         viewModel.productModelLiveData.observe(viewLifecycleOwner, Observer { product ->
             if (product.lastTraded != null && product.priceDateTime != null) {
                 chart.updateDataChart(product.lastTraded, product.priceDateTime)
@@ -111,7 +153,14 @@ class LandingChartFragment : BaseNFragment(R.layout.landing_chart_fragment), Has
 
     private fun updateBtn(period: ChartInterval) {
         if (isFirstStart) progressDialog.show()
-        viewModel.getChartDataResult(collectionId, period)
+        when (chartType) {
+            Constants.ChartConstant.LINE_CHART -> {
+                viewModel.getChartDataResult(collectionId, period)
+            }
+            Constants.ChartConstant.CANDLE_CHART -> {
+                viewModel.getCandleChartDataResult(collectionId, period)
+            }
+        }
     }
 
     override fun onResume() {

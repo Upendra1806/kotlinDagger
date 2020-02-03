@@ -52,7 +52,7 @@ class FxDetailFragment : BaseNFragment(R.layout.fragment_fx_detail), HasOfflineP
 
     }
 
-    private var precision: Int = 4
+    private var mPrecesion: Int = 4
 
     private val model by lazy {
         arguments?.getParcelable<FxModel>(ARG_MODEL)
@@ -89,7 +89,7 @@ class FxDetailFragment : BaseNFragment(R.layout.fragment_fx_detail), HasOfflineP
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        precision = model?.precision ?: 4
+        mPrecesion = model?.precision ?: 4
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -110,7 +110,7 @@ class FxDetailFragment : BaseNFragment(R.layout.fragment_fx_detail), HasOfflineP
                             startActivity(UnderlyingAlertsActivity.newIntent(requireContext(),
                                     productId,
                                     if (type == FxType.CURRENCY) ProductType.CURRENCY else ProductType.METAL,
-                                    precision))
+                                    mPrecesion))
                         }
                     } else {
                         context?.startActivity(Intent(context, LoginActivity::class.java))
@@ -146,9 +146,10 @@ class FxDetailFragment : BaseNFragment(R.layout.fragment_fx_detail), HasOfflineP
             toggleGraph()
         }
         landingActionButton.setOnClickListener {
-            startActivity(ChartActivity.newIntent(requireContext(), productId, title, periods, periods[tabLayout.selectedTabPosition], precision))
+            startActivity(ChartActivity.newIntent(requireContext(), productId, title, periods,
+                    periods[tabLayout.selectedTabPosition], mPrecesion,mChartType))
         }
-        chart.precision = precision
+        setPrecision(mPrecesion)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -216,7 +217,7 @@ class FxDetailFragment : BaseNFragment(R.layout.fragment_fx_detail), HasOfflineP
         }
         title = item.title
 
-        precision = item.precision
+        mPrecesion = item.precision
 
         screenTitle.text = item.name
         isImgStarTrue = item.isInWatchList ?: false
@@ -249,14 +250,14 @@ class FxDetailFragment : BaseNFragment(R.layout.fragment_fx_detail), HasOfflineP
 
     private fun updateUiFromSocket(product: ProductUpdateModel) {
         setPriceChangeUI(product.priceChangePct)
-        txtLastTrade.text = product.lastTraded?.format(precision)
+        txtLastTrade.text = product.lastTraded?.format(mPrecesion)
         txtDate.text = product.priceDateTime?.formatDate(Constants.DATE_FORMAT) ?: ""
 
         val ratio = StringBuilder()
-        if (product.maxLastTraded != null) ratio.append(product.maxLastTraded.format(precision))
+        if (product.maxLastTraded != null) ratio.append(product.maxLastTraded.format(mPrecesion))
         if (product.minLastTraded != null) {
             if (product.maxLastTraded != null) ratio.append("/")
-            ratio.append(product.minLastTraded.format(precision))
+            ratio.append(product.minLastTraded.format(mPrecesion))
         }
         txtRatio.text = ratio.toString()
 
@@ -267,7 +268,7 @@ class FxDetailFragment : BaseNFragment(R.layout.fragment_fx_detail), HasOfflineP
 
     private fun setPriceChangeUI(priceChangePct: Double) {
         txtPercent.text = priceChangePct.formatPercent(resources)
-        val priceChangePctRounded = priceChangePct.times(100).round(precision)
+        val priceChangePctRounded = priceChangePct.times(100).round(mPrecesion)
         val colorResId = when {
             priceChangePctRounded < 0 -> R.color.rouge
             priceChangePctRounded > 0 -> R.color.blueGreen

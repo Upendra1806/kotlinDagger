@@ -7,17 +7,19 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.juliusbaer.premarket.dataFlow.IDataManager
 import com.juliusbaer.premarket.dataFlow.database.IDbHelper
+import com.juliusbaer.premarket.dataFlow.zeroMQ.ZeroMQHandler
 import com.juliusbaer.premarket.helpers.chart.ChartInterval
 import com.juliusbaer.premarket.models.CandleStickModel.CandleChartData
 import com.juliusbaer.premarket.models.ChartData
 import com.juliusbaer.premarket.models.responseModel.Resource
+import com.juliusbaer.premarket.ui.base.SocketVM
 import com.juliusbaer.premarket.utils.Constants
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class BaseChartViewModel @Inject constructor(
         private val dataManager: IDataManager,
-        private val database: IDbHelper,gson: Gson) : ViewModel(){
+        private val database: IDbHelper, messageTask: ZeroMQHandler, gson: Gson) : SocketVM(messageTask,gson){
 
     private val candleChartLiveDataMut = MutableLiveData<Resource<Pair<CandleChartData, ChartInterval>>>()
     private  var chartTypeLiveData: MutableLiveData<String> = MutableLiveData(Constants.ChartConstant.LINE_CHART)

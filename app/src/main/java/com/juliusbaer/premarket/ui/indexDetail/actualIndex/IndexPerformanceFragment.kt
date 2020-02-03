@@ -74,7 +74,8 @@ class IndexPerformanceFragment : BaseNFragment(R.layout.fragment_index_performan
             }
         })
         landingActionButton.setOnClickListener {
-            startActivity(ChartActivity.newIntent(requireContext(), productId, ticker, periods, periods[tabLayout.selectedTabPosition]))
+            startActivity(ChartActivity.newIntent(requireContext(), productId, ticker, periods,
+                    periods[tabLayout.selectedTabPosition],Constants.PRECISION,mChartType))
         }
 
         toggleGraph.setOnClickListener{

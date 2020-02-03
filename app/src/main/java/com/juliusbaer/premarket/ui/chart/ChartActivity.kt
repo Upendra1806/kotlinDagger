@@ -22,19 +22,21 @@ class ChartActivity : AppCompatActivity(R.layout.activity_menu), HasAndroidInjec
         private const val EXTRA_PRECISION = "PRECISION"
         private const val EXTRA_PERIODS = "PERIODS"
         private const val EXTRA_INTERVAL = "INTERVAL"
+        private const val EXTRA_CHART_TYPE = "chartType"
 
         fun newIntent(ctx: Context,
                       itemId: Int,
                       title: String,
                       periods: ArrayList<ChartInterval>,
                       interval: ChartInterval,
-                      precision: Int = Constants.PRECISION): Intent {
+                      precision: Int = Constants.PRECISION,chartType:String): Intent {
             return Intent(ctx, ChartActivity::class.java)
                     .putExtra(EXTRA_ITEM_ID, itemId)
                     .putExtra(EXTRA_TITLE, title)
                     .putExtra(EXTRA_PERIODS, periods)
                     .putExtra(EXTRA_INTERVAL, interval)
                     .putExtra(EXTRA_PRECISION, precision)
+                    .putExtra(EXTRA_CHART_TYPE,chartType)
         }
     }
 
@@ -55,7 +57,8 @@ class ChartActivity : AppCompatActivity(R.layout.activity_menu), HasAndroidInjec
                 intent.getStringExtra(EXTRA_TITLE),
                 intent.getSerializableExtra(EXTRA_PERIODS) as ArrayList<ChartInterval>,
                 intent.getSerializableExtra(EXTRA_INTERVAL) as ChartInterval,
-                intent.getIntExtra(EXTRA_PRECISION, Constants.PRECISION))
+                intent.getIntExtra(EXTRA_PRECISION, Constants.PRECISION),
+                intent.getStringExtra(EXTRA_CHART_TYPE))
 
         addFragmentSafely(
                 fragment,

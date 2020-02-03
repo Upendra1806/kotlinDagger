@@ -79,7 +79,8 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
         txtOpenTop.paintFlags = txtOpenTop.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
         landingActionButton.setOnClickListener {
-            startActivity(ChartActivity.newIntent(requireContext(), productId, ticker, periods, periods[tabLayout.selectedTabPosition]))
+            startActivity(ChartActivity.newIntent(requireContext(), productId, ticker, periods,
+                    periods[tabLayout.selectedTabPosition],Constants.PRECISION,mChartType))
         }
 
         toggleGraph.setOnClickListener{

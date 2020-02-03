@@ -217,4 +217,8 @@ abstract class BaseNFragment(@LayoutRes layoutId: Int) : Fragment(layoutId), Has
             }
         }
     }
+
+    fun setPrecision(precision: Int){
+        chart.precision = precision
+    }
 }
