@@ -34,11 +34,14 @@ class MostActiveAdapter(val listener: OnItemClick) : ListAdapter<WarrantModel, M
         private val title = itemView.txtTitle
         private val txtPosition = itemView.txtPosition
         private val txtLastTraded = itemView.txtAsk
+        private val txtCompanyName = itemView.txtCompanyName
 
         fun bind(item: WarrantModel, listener: OnItemClick) {
             title.text = item.title
             txtPosition.text = (adapterPosition + 1).toString()
             txtLastTraded.text = item.tradedVolume?.toString()?:""
+            //TODO: Display company Name
+            txtCompanyName.text = item.ticker?:""
             mostItem.setOnClickListener { listener.onClick(item) }
         }
     }

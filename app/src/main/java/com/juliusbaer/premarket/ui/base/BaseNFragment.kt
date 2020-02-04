@@ -15,6 +15,8 @@ import com.juliusbaer.premarket.core.viewmodel.ViewModelFactory
 import com.juliusbaer.premarket.dataFlow.IUserStorage
 import com.juliusbaer.premarket.dataFlow.NetworkStateManager
 import com.juliusbaer.premarket.helpers.chart.ChartInterval
+import com.juliusbaer.premarket.models.CandleStickModel.CandleChartData
+import com.juliusbaer.premarket.models.CandleStickModel.CandleData
 import com.juliusbaer.premarket.models.responseModel.Resource
 import com.juliusbaer.premarket.ui.OfflineFragment
 import com.juliusbaer.premarket.ui.ProgressDialog
@@ -220,5 +222,23 @@ abstract class BaseNFragment(@LayoutRes layoutId: Int) : Fragment(layoutId), Has
 
     fun setPrecision(precision: Int){
         chart.precision = precision
+    }
+
+    fun dummyCandleChart(){
+        //Todo need to remove dummy data for candle stick
+        candleChart.clear()
+       /* val (result, period) = it.data
+        var chartDataEntries = it.data.first.data;
+        var listCandleData = ArrayList<CandleData>()
+        for (data in chartDataEntries!!) {
+            var candleData = CandleData(10f, 1f, 6f, 3f, data.x, data.y)
+            listCandleData.add(candleData)
+
+        }
+        var candleChartData = CandleChartData(listCandleData, it.data.second.interval)
+
+        candleChart.setData(candleChartData.data
+                ?: emptyList(), period, candleChartData.xAxisInterval)*/
+
     }
 }

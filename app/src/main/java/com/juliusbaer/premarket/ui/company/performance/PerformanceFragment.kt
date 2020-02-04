@@ -199,21 +199,4 @@ class PerformanceFragment : BaseNFragment(R.layout.fragment_performance) {
         super.onPause()
     }
 
-    fun dummyCandleChart(){
-        //Todo need to remove dummy data for candle stick
-/*        candleChart.clear()
-        val (result, period) = it.data
-        var chartDataEntries = it.data.first.data;
-        var listCandleData = ArrayList<CandleData>()
-        for (data in chartDataEntries!!) {
-            var candleData = CandleData(10f, 1f, 6f, 3f, data.x, data.y)
-            listCandleData.add(candleData)
-
-        }
-        var candleChartData = CandleChartData(listCandleData, it.data.second.interval)
-
-        candleChart.setData(candleChartData.data
-                ?: emptyList(), period, candleChartData.xAxisInterval)
-    }*/
-    }
 }
