@@ -59,9 +59,9 @@ class MarketsIndicesAdapter(val listener: OnItemClick) : ListAdapter<IndexModel,
         var background: CardView = itemView.cardView2
 
         fun bind(index: IndexModel, listener: OnItemClick, max: Double, min: Double) {
-            if (index.hasDetails == true) {
-                itemView.setOnClickListener { listener.onClick(index) }
-            }
+            //Removed the condition to check for hasDetails
+            itemView.setOnClickListener { listener.onClick(index) }
+
             txtPercents.text = index.priceChangePct.formatPercent(itemView.resources)
             calculateAlpha(index.priceChangePct.times(100), max, min)
             txtName.text = index.marketsTitle
