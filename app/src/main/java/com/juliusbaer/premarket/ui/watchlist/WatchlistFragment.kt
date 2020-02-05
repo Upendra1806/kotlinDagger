@@ -2,9 +2,11 @@ package com.juliusbaer.premarket.ui.watchlist
 
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
 import android.text.Editable
+import android.text.Selection
 import android.text.TextWatcher
 import android.view.View
 import android.view.ViewTreeObserver
@@ -23,15 +25,13 @@ import com.juliusbaer.premarket.models.ProductType
 import com.juliusbaer.premarket.models.responseModel.Resource
 import com.juliusbaer.premarket.models.serverModels.FxType
 import com.juliusbaer.premarket.ui.alerts.UnderlyingAlertsActivity
-import com.juliusbaer.premarket.ui.base.BaseNFragment
-import com.juliusbaer.premarket.ui.base.HasOfflinePlaceHolder
-import com.juliusbaer.premarket.ui.base.NavigationChild
-import com.juliusbaer.premarket.ui.base.NavigationHost
+import com.juliusbaer.premarket.ui.base.*
 import com.juliusbaer.premarket.ui.company.CompanyFragment
 import com.juliusbaer.premarket.ui.detailWarrant.WarrantDetailFragment
 import com.juliusbaer.premarket.ui.fragments.extentions.initToolbar
 import com.juliusbaer.premarket.ui.indexDetail.IndexDetailFragment
 import com.juliusbaer.premarket.ui.markets.fx.FxDetailFragment
+import com.juliusbaer.premarket.utils.ArrayAdapterNormalized
 import com.juliusbaer.premarket.utils.UiUtils
 import com.juliusbaer.premarket.utils.UiUtils.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_watchlist.*
@@ -56,6 +56,7 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
     private var groups = listOf<List<WatchListItem>>()
 
     private var listState: Parcelable? = null
+    private var validAutoCompleteConstraint: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,7 +71,7 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
                 false
             }
         }
-        editTextSearch.viewTreeObserver.addOnGlobalLayoutListener(keyboardLayoutListener)
+/*        editTextSearch.viewTreeObserver.addOnGlobalLayoutListener(keyboardLayoutListener)
         editTextSearch.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 cancel.isVisible = true
@@ -90,7 +91,7 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
                 else -> false
             }
         }
-        editTextSearch.addTextChangedListener(editTextWatcher)
+        editTextSearch.addTextChangedListener(editTextWatcher)*/
 
         screenTitle.setText(R.string.watchlist)
 
@@ -130,6 +131,21 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
             }
         })
         recyclerView.adapter = adapter
+
+        editTextSearch.setFilterCompleteListener { count ->
+            if (count == 1 && editTextSearch.adapter.getItemId(0) == -1L) {
+                setAutoCompleteText(validAutoCompleteConstraint)
+            } else {
+                validAutoCompleteConstraint = (editTextSearch.adapter as SearchAdapter).constraint.toString()
+            }
+        }
+    }
+
+    private fun setAutoCompleteText(oldText: String?) {
+        editTextSearch.clearComposingText()
+        editTextSearch.setText(oldText, false)
+        val spannable = editTextSearch.text
+        Selection.setSelection(spannable, spannable.length)
     }
 
     override fun onDestroyView() {
@@ -185,6 +201,12 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
                 }
             }
         })
+        viewModel.underlyingsLiveData.observe(this, Observer {
+            when (it) {
+                is Resource.Success -> populateUnderlyingsUI(it.data)
+                is Resource.Failure -> if (!it.hasBeenHandled) parseError(it.e()!!)
+            }
+        })
     }
 
     override fun onResume() {
@@ -202,6 +224,7 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
         if (isOnline || isFirstStart) {
             progressDialog.show()
             viewModel.getWatchListAnswer()
+            viewModel.loadUnderlyings()
         }
     }
 
@@ -306,6 +329,23 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
         viewModel.deleteWatchListItem(id)
     }
 
+    private fun populateUnderlyingsUI(list: List<WatchListSearchModel>) {
+        editTextSearch.setAdapter(SearchAdapter(requireContext(),
+                android.R.layout.simple_dropdown_item_1line, list))
+
+        editTextSearch.setOnClickListener {
+            //case when dropdown was hidden by clicking back button on device and then user click on empty but still focused input field
+            if (!editTextSearch.isPopupShowing && editTextSearch.hasFocus()) {
+                editTextSearch.showDropDown()
+            }
+        }
+        editTextSearch.setOnItemClickListener { _, _, _, id ->
+            editTextSearch.clearFocus()
+            //viewModel.getExtremeWarrantValues(id.toInt())
+            (activity as? BaseActivity)?.hideSoftKeyboard()
+        }
+    }
+
     class DeleteWatchlistDialog : DialogFragment() {
         companion object {
             private const val ARG_WATCHLIST_ID = "watchlist_id"
@@ -325,6 +365,20 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
                     }
                     .setNegativeButton(R.string.cancel, null)
                     .show()
+        }
+
+    }
+
+    private class SearchAdapter(context: Context, resource: Int, objects: List<WatchListSearchModel>) :
+            ArrayAdapterNormalized<WatchListSearchModel>(context, resource, objects) {
+        override fun getItemId(position: Int): Long {
+            return getItem(position)!!.id.toLong()
+        }
+
+        override val emptyItem = WatchListSearchModel(-1, context.getString(R.string.no_results),"")
+
+        override fun isEnabled(position: Int): Boolean {
+            return getItem(position)!!.id > 0
         }
     }
 }

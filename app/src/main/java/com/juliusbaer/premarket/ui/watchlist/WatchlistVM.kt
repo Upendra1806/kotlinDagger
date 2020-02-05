@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.juliusbaer.premarket.core.utils.CoroutinesDispatchers
 import com.juliusbaer.premarket.core.viewmodel.SingleLiveEvent
 import com.juliusbaer.premarket.dataFlow.IDataManager
 import com.juliusbaer.premarket.dataFlow.database.IDbHelper
@@ -11,6 +12,9 @@ import com.juliusbaer.premarket.dataFlow.zeroMQ.ZeroMQHandler
 import com.juliusbaer.premarket.models.responseModel.Resource
 import com.juliusbaer.premarket.models.serverModels.ProductUpdateModel
 import com.juliusbaer.premarket.ui.base.SocketVM
+import com.juliusbaer.premarket.ui.filter.FilterSearchModel
+import com.juliusbaer.premarket.utils.Constants
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -23,6 +27,9 @@ class WatchlistVM @Inject constructor(
     private val itemLiveDataMut = MutableLiveData<Resource<List<List<WatchListItem>>>>()
     val itemLiveData: LiveData<Resource<List<List<WatchListItem>>>>
         get() = itemLiveDataMut
+    private val underlyingsLiveDataMut = MutableLiveData<Resource<List<WatchListSearchModel>>>()
+    val underlyingsLiveData: LiveData<Resource<List<WatchListSearchModel>>>
+        get() = underlyingsLiveDataMut
 
     val watchListItemDel = SingleLiveEvent<Resource<Int>>()
 
@@ -111,6 +118,21 @@ class WatchlistVM @Inject constructor(
                 database.updateWarrantFromSocketModel(product)
             } catch (throwable: Throwable) {
                 Timber.e(throwable)
+            }
+        }
+    }
+
+    fun loadUnderlyings() {
+        viewModelScope.launch {
+            underlyingsLiveDataMut.value = try {
+                val underlyingsResult = viewModelScope.async(CoroutinesDispatchers.IO) { dataManager.getUnderlyings() }
+                val indexesResult = viewModelScope.async(CoroutinesDispatchers.IO) {  dataManager.getIndexes() }
+                val searchableList = indexesResult.await().map { (WatchListSearchModel(it.id, it.marketsTitle?:"",
+                        Constants.ElementType.INDEX))  }
+                        .plus(underlyingsResult.await().map { (WatchListSearchModel(it.id, it.title,Constants.ElementType.UNDERLYING))  })
+                Resource.success(searchableList)
+            } catch (e: Throwable) {
+                Resource.failure(e)
             }
         }
     }

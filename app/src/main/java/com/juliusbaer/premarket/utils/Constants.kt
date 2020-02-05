@@ -32,4 +32,14 @@ object Constants {
             val CANDLE_CHART :String = "candleChart"
         }
     }
+
+    interface ElementType{
+
+        companion object{
+            val UNDERLYING:String = "underlying"
+            val INDEX :String = "index"
+            val CURRENCY:String = "currency"
+            val WARRANTS:String = "warrants"
+        }
+    }
 }
