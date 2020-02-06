@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -24,14 +26,17 @@ import com.juliusbaer.premarket.dataFlow.NetworkStateManager
 import com.juliusbaer.premarket.models.ProductType
 import com.juliusbaer.premarket.models.responseModel.Resource
 import com.juliusbaer.premarket.models.serverModels.FxType
+import com.juliusbaer.premarket.models.serverModels.IndexModel
 import com.juliusbaer.premarket.ui.alerts.UnderlyingAlertsActivity
 import com.juliusbaer.premarket.ui.base.*
 import com.juliusbaer.premarket.ui.company.CompanyFragment
+import com.juliusbaer.premarket.ui.company.performance.PerformanceFragment
 import com.juliusbaer.premarket.ui.detailWarrant.WarrantDetailFragment
 import com.juliusbaer.premarket.ui.fragments.extentions.initToolbar
 import com.juliusbaer.premarket.ui.indexDetail.IndexDetailFragment
 import com.juliusbaer.premarket.ui.markets.fx.FxDetailFragment
 import com.juliusbaer.premarket.utils.ArrayAdapterNormalized
+import com.juliusbaer.premarket.utils.Constants
 import com.juliusbaer.premarket.utils.UiUtils
 import com.juliusbaer.premarket.utils.UiUtils.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_watchlist.*
@@ -57,6 +62,7 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
 
     private var listState: Parcelable? = null
     private var validAutoCompleteConstraint: String? = null
+    private var searchItemMap:HashMap<Long,WatchListSearchModel>?=null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -136,7 +142,7 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
             if (count == 1 && editTextSearch.adapter.getItemId(0) == -1L) {
                 setAutoCompleteText(validAutoCompleteConstraint)
             } else {
-                validAutoCompleteConstraint = (editTextSearch.adapter as SearchAdapter).constraint.toString()
+                validAutoCompleteConstraint = (editTextSearch.adapter as WatchListSearchAdapter).constraint.toString()
             }
         }
     }
@@ -330,9 +336,13 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
     }
 
     private fun populateUnderlyingsUI(list: List<WatchListSearchModel>) {
-        editTextSearch.setAdapter(SearchAdapter(requireContext(),
+        editTextSearch.setAdapter(WatchListSearchAdapter(requireContext(),
                 android.R.layout.simple_dropdown_item_1line, list))
 
+        searchItemMap = HashMap()
+        for(item in list){
+            searchItemMap!!.put(item.id.toLong(),item)
+        }
         editTextSearch.setOnClickListener {
             //case when dropdown was hidden by clicking back button on device and then user click on empty but still focused input field
             if (!editTextSearch.isPopupShowing && editTextSearch.hasFocus()) {
@@ -341,8 +351,12 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
         }
         editTextSearch.setOnItemClickListener { _, _, _, id ->
             editTextSearch.clearFocus()
-            //viewModel.getExtremeWarrantValues(id.toInt())
             (activity as? BaseActivity)?.hideSoftKeyboard()
+            val model:WatchListSearchModel =  searchItemMap!!.get(id)!!
+            when(model.type){
+                Constants.ElementType.UNDERLYING -> (activity as? NavigationHost)?.openFragment(CompanyFragment.newInstance(model.id, false), null, true, R.style.FragStyle)
+                Constants.ElementType.INDEX -> (activity as? NavigationHost)?.openFragment(IndexDetailFragment.newInstance(model.id, false, model.item as IndexModel), null, true, R.style.FragStyle)
+            }
         }
     }
 
@@ -369,16 +383,26 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
 
     }
 
-    private class SearchAdapter(context: Context, resource: Int, objects: List<WatchListSearchModel>) :
-            ArrayAdapterNormalized<WatchListSearchModel>(context, resource, objects) {
+    /*private class SearchAdapter(context: Context, resource: Int, objects: List<WatchListSearchModel>) :
+            ArrayAdapterNormalized<WatchListSearchModel>(context, resource, objects),Filterable {
         override fun getItemId(position: Int): Long {
             return getItem(position)!!.id.toLong()
         }
 
-        override val emptyItem = WatchListSearchModel(-1, context.getString(R.string.no_results),"")
+        override val emptyItem = WatchListSearchModel(-1, context.getString(R.string.no_results),"",null)
+        var filterItems : List<WatchListSearchModel>? = null
 
         override fun isEnabled(position: Int): Boolean {
             return getItem(position)!!.id > 0
         }
-    }
+
+        override fun getFilter(): Filter {
+            return super.getFilter()
+        }
+
+
+
+    }*/
+
+
 }

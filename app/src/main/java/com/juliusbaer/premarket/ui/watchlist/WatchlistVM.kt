@@ -125,11 +125,13 @@ class WatchlistVM @Inject constructor(
     fun loadUnderlyings() {
         viewModelScope.launch {
             underlyingsLiveDataMut.value = try {
+                val watchListResult = viewModelScope.async(CoroutinesDispatchers.IO) {dataManager.getWatchList()  }
                 val underlyingsResult = viewModelScope.async(CoroutinesDispatchers.IO) { dataManager.getUnderlyings() }
                 val indexesResult = viewModelScope.async(CoroutinesDispatchers.IO) {  dataManager.getIndexes() }
+
                 val searchableList = indexesResult.await().map { (WatchListSearchModel(it.id, it.marketsTitle?:"",
-                        Constants.ElementType.INDEX))  }
-                        .plus(underlyingsResult.await().map { (WatchListSearchModel(it.id, it.title,Constants.ElementType.UNDERLYING))  })
+                        Constants.ElementType.INDEX,it as Object))  }
+                        .plus(underlyingsResult.await().map { (WatchListSearchModel(it.id, it.title,Constants.ElementType.UNDERLYING,it as Object))  })
                 Resource.success(searchableList)
             } catch (e: Throwable) {
                 Resource.failure(e)
