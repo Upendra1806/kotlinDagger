@@ -25,8 +25,10 @@ import com.juliusbaer.premarket.R
 import com.juliusbaer.premarket.dataFlow.NetworkStateManager
 import com.juliusbaer.premarket.models.ProductType
 import com.juliusbaer.premarket.models.responseModel.Resource
+import com.juliusbaer.premarket.models.serverModels.FxModel
 import com.juliusbaer.premarket.models.serverModels.FxType
 import com.juliusbaer.premarket.models.serverModels.IndexModel
+import com.juliusbaer.premarket.models.serverModels.WarrantModel
 import com.juliusbaer.premarket.ui.alerts.UnderlyingAlertsActivity
 import com.juliusbaer.premarket.ui.base.*
 import com.juliusbaer.premarket.ui.company.CompanyFragment
@@ -61,8 +63,7 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
     private var groups = listOf<List<WatchListItem>>()
 
     private var listState: Parcelable? = null
-    private var validAutoCompleteConstraint: String? = null
-    private var searchItemMap:HashMap<Long,WatchListSearchModel>?=null
+    private var searchItemMap: HashMap<Long, WatchListSearchModel>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,27 +78,6 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
                 false
             }
         }
-/*        editTextSearch.viewTreeObserver.addOnGlobalLayoutListener(keyboardLayoutListener)
-        editTextSearch.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                cancel.isVisible = true
-            }
-        }
-        editTextSearch.setOnClickListener {
-            if (it.hasFocus() && (it as EditText).text.isNullOrEmpty()) {
-                cancel.isVisible = true
-            }
-        }
-        editTextSearch.setOnEditorActionListener { v, actionId, event ->
-            when (actionId) {
-                EditorInfo.IME_ACTION_SEARCH -> {
-                    hideKeyboard(editTextSearch)
-                    true
-                }
-                else -> false
-            }
-        }
-        editTextSearch.addTextChangedListener(editTextWatcher)*/
 
         screenTitle.setText(R.string.watchlist)
 
@@ -137,21 +117,6 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
             }
         })
         recyclerView.adapter = adapter
-
-        editTextSearch.setFilterCompleteListener { count ->
-            if (count == 1 && editTextSearch.adapter.getItemId(0) == -1L) {
-                setAutoCompleteText(validAutoCompleteConstraint)
-            } else {
-                validAutoCompleteConstraint = (editTextSearch.adapter as WatchListSearchAdapter).constraint.toString()
-            }
-        }
-    }
-
-    private fun setAutoCompleteText(oldText: String?) {
-        editTextSearch.clearComposingText()
-        editTextSearch.setText(oldText, false)
-        val spannable = editTextSearch.text
-        Selection.setSelection(spannable, spannable.length)
     }
 
     override fun onDestroyView() {
@@ -165,7 +130,8 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
         viewModel.watchListItemDel.observe(viewLifecycleOwner, Observer {
             progressDialog.hide()
             when (it) {
-                is Resource.Success -> {}
+                is Resource.Success -> {
+                }
                 is Resource.Failure -> if (!it.hasBeenHandled) parseError(it.e()!!, true)
             }
         })
@@ -217,10 +183,9 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
 
     override fun onResume() {
         super.onResume()
-
         ShortcutBadger.applyCount(context, 0)
         storage.badgeCount = 0
-
+        editTextSearch.setText("")
         doRequests(NetworkStateManager.isNetworkAvailable(requireContext()))
     }
 
@@ -262,61 +227,6 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
         }
     }
 
-    private val editTextWatcher = object : TextWatcher {
-        private var originalText: CharSequence? = null
-
-        override fun afterTextChanged(s: Editable) {
-            val searchQuery = s.toString()
-            if (searchQuery.trim() == "") {
-                clear.isVisible = false
-
-                originalText = ""
-                adapter.submitList(groups)
-
-                checkDataUI()
-            } else {
-                val tmp = groups.map {
-                    it.filter { el ->
-                        el.title.contains(s, true)
-                                || el.valor?.contains(searchQuery, true) == true
-                                || el.ticker?.contains(searchQuery, true) == true
-                                || el.isin?.contains(searchQuery, true) == true
-                    }
-                }
-                val hasResults = tmp.any { it.isNotEmpty() }
-                if (!hasResults) {
-                    setSearchTextInternal(originalText)
-                    return
-                }
-                originalText = searchQuery
-                clear.isVisible = true
-
-                if (hasResults) {
-                    recyclerView.isVisible = true
-                    txtEmpty.isVisible = false
-                } else {
-                    recyclerView.isVisible = false
-                    txtEmpty.isVisible = true
-                    txtEmpty.setText(R.string.no_results)
-                }
-                adapter.submitList(tmp)
-            }
-        }
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        }
-    }
-
-    private fun setSearchTextInternal(originalText: CharSequence?) {
-        editTextSearch.removeTextChangedListener(editTextWatcher)
-        editTextSearch.setText(originalText)
-        editTextSearch.setSelection(originalText?.length ?: 0)
-        editTextSearch.addTextChangedListener(editTextWatcher)
-    }
-
     override fun onPause() {
         viewModel.unsubscribeFromRtUpdates()
         super.onPause()
@@ -340,8 +250,8 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
                 android.R.layout.simple_dropdown_item_1line, list))
 
         searchItemMap = HashMap()
-        for(item in list){
-            searchItemMap!!.put(item.id.toLong(),item)
+        for (item in list) {
+            searchItemMap!!.put(item.id.toLong(), item)
         }
         editTextSearch.setOnClickListener {
             //case when dropdown was hidden by clicking back button on device and then user click on empty but still focused input field
@@ -352,10 +262,25 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
         editTextSearch.setOnItemClickListener { _, _, _, id ->
             editTextSearch.clearFocus()
             (activity as? BaseActivity)?.hideSoftKeyboard()
-            val model:WatchListSearchModel =  searchItemMap!!.get(id)!!
-            when(model.type){
+            val model: WatchListSearchModel = searchItemMap!!.get(id)!!
+            when (model.type) {
                 Constants.ElementType.UNDERLYING -> (activity as? NavigationHost)?.openFragment(CompanyFragment.newInstance(model.id, false), null, true, R.style.FragStyle)
                 Constants.ElementType.INDEX -> (activity as? NavigationHost)?.openFragment(IndexDetailFragment.newInstance(model.id, false, model.item as IndexModel), null, true, R.style.FragStyle)
+                Constants.ElementType.WARRANTS -> (activity as? NavigationHost)?.openFragment(WarrantDetailFragment.newInstance(model.id, false, model.item as WarrantModel), null, true, R.style.FragStyle)
+                Constants.ElementType.CURRENCY -> {
+                    val fxModel = model.item as FxModel
+                    (activity as? NavigationHost)?.openFragment(
+                            FxDetailFragment.newInstance(model.id, FxType.values()[fxModel.type!!],
+                                    false, fxModel), null, true, R.style.FragStyle)
+                }
+                Constants.ElementType.FX -> {
+                    val fxModel = model.item as FxModel
+                    (activity as? NavigationHost)?.openFragment(
+                            FxDetailFragment.newInstance(model.id, FxType.values()[fxModel.type!!],
+                                    false, fxModel), null, true, R.style.FragStyle)
+                }
+
+
             }
         }
     }
@@ -382,27 +307,6 @@ class WatchlistFragment : BaseNFragment(R.layout.fragment_watchlist), HasOffline
         }
 
     }
-
-    /*private class SearchAdapter(context: Context, resource: Int, objects: List<WatchListSearchModel>) :
-            ArrayAdapterNormalized<WatchListSearchModel>(context, resource, objects),Filterable {
-        override fun getItemId(position: Int): Long {
-            return getItem(position)!!.id.toLong()
-        }
-
-        override val emptyItem = WatchListSearchModel(-1, context.getString(R.string.no_results),"",null)
-        var filterItems : List<WatchListSearchModel>? = null
-
-        override fun isEnabled(position: Int): Boolean {
-            return getItem(position)!!.id > 0
-        }
-
-        override fun getFilter(): Filter {
-            return super.getFilter()
-        }
-
-
-
-    }*/
 
 
 }

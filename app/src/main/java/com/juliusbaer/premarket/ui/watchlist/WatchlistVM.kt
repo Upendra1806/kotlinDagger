@@ -125,13 +125,29 @@ class WatchlistVM @Inject constructor(
     fun loadUnderlyings() {
         viewModelScope.launch {
             underlyingsLiveDataMut.value = try {
-                val watchListResult = viewModelScope.async(CoroutinesDispatchers.IO) {dataManager.getWatchList()  }
+                val watchListResult = viewModelScope.async(CoroutinesDispatchers.IO) { dataManager.getWatchList() }
                 val underlyingsResult = viewModelScope.async(CoroutinesDispatchers.IO) { dataManager.getUnderlyings() }
-                val indexesResult = viewModelScope.async(CoroutinesDispatchers.IO) {  dataManager.getIndexes() }
+                val indexesResult = viewModelScope.async(CoroutinesDispatchers.IO) { dataManager.getIndexes() }
 
-                val searchableList = indexesResult.await().map { (WatchListSearchModel(it.id, it.marketsTitle?:"",
-                        Constants.ElementType.INDEX,it as Object))  }
-                        .plus(underlyingsResult.await().map { (WatchListSearchModel(it.id, it.title,Constants.ElementType.UNDERLYING,it as Object))  })
+                val searchableList = watchListResult.await().preciousMetals!!.map {
+                    (WatchListSearchModel(it.id, it.title ?: "",
+                            Constants.ElementType.FX, it as Object))
+                }.sortedBy { it.title }.plus(
+                        watchListResult.await().currencyPairs!!.map {
+                            (WatchListSearchModel(it.id, it.title ?: "",
+                                    Constants.ElementType.CURRENCY, it as Object))
+                        }.sortedBy { it.title }).plus(
+                        watchListResult.await().warrants!!.map {
+                            (WatchListSearchModel(it.id, it.title ?: "",
+                                    Constants.ElementType.WARRANTS, it as Object))
+                        }).sortedBy { it.title }.plus(
+                        indexesResult.await().map {
+                            (WatchListSearchModel(it.id, it.marketsTitle ?: "",
+                                    Constants.ElementType.INDEX, it as Object))
+                        }.sortedBy { it.title })
+                        .plus(underlyingsResult.await().map {
+                            (WatchListSearchModel(it.id, it.title, Constants.ElementType.UNDERLYING, it as Object))
+                        }.sortedBy { it.title })
                 Resource.success(searchableList)
             } catch (e: Throwable) {
                 Resource.failure(e)

@@ -40,6 +40,7 @@ object Constants {
             val INDEX :String = "index"
             val CURRENCY:String = "currency"
             val WARRANTS:String = "warrants"
+            val FX:String ="fx"
         }
     }
 }
